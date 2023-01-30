@@ -1,6 +1,6 @@
 type AuctionBid @entity {
   id: ID!
-  nft: Int!
+  tokenId: Int!
   dao: String!
   sender: String!
   value: String!
@@ -10,7 +10,7 @@ type AuctionBid @entity {
 
 type AuctionCreated @entity {
   id: ID!
-  nft: Int!
+  tokenId: Int!
   dao: String!
   startTime: Int!
   endTime: Int!
@@ -19,7 +19,7 @@ type AuctionCreated @entity {
 
 type AuctionExtended @entity {
   id: ID!
-  nft: Int!
+  tokenId: Int!
   dao: String!
   endTime: Int!
   createdAt: Int!
@@ -41,7 +41,7 @@ type AuctionReservePriceUpdated @entity {
 
 type AuctionSettled @entity {
   id: ID!
-  nft: Int!
+  tokenId: Int!
   dao: String!
   winner: String!
   amount: String!
@@ -74,5 +74,65 @@ type Unpaused @entity {
   id: ID!
   dao: String!
   account: String!
+  createdAt: Int!
+}
+
+type Approval @entity {
+  id: ID!
+  dao: String!
+  owner: String!
+  approved: String!
+  tokenId: Int!
+  createdAt: Int!
+}
+
+type ApprovalForAll @entity {
+  id: ID!
+  dao: String!
+  owner: String!
+  operator: String!
+  approved: Boolean!
+  createdAt: Int!
+}
+
+type DelegateChanged @entity {
+  id: ID!
+  dao: String!
+  delegator: String!
+  fromDelegate: String!
+  toDelegate: String!
+  createdAt: Int!
+}
+
+type DelegateVotesChanged @entity {
+  id: ID!
+  dao: String!
+  delegate: String!
+  previousBalance: Int!
+  newBalance: Int!
+  createdAt: Int!
+}
+
+type NounBurned @entity {
+  id: ID!
+  dao: String!
+  tokenId: Int!
+  createdAt: Int!
+}
+
+type NounCreated @entity {
+  id: ID!
+  dao: String!
+  seed: String!
+  tokenId: Int!
+  createdAt: Int!
+}
+
+type Transfer @entity {
+  id: ID!
+  dao: String!
+  from: String!
+  to: String!
+  tokenId: Int!
   createdAt: Int!
 }

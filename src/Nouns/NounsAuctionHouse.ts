@@ -1,4 +1,7 @@
+import { DAO } from '../types'
 import { ponder } from '../../generated'
+
+const dao: DAO = 'Nouns'
 
 ponder.on('NounsAuctionHouse:AuctionBid', async ({ event, context }) => {
   const id = event.log.logId
@@ -6,8 +9,8 @@ ponder.on('NounsAuctionHouse:AuctionBid', async ({ event, context }) => {
   const { nounId, sender, value, extended } = event.params
 
   await AuctionBid.insert(id, {
-    nft: Number(nounId),
-    dao: 'Nouns',
+    dao,
+    tokenId: Number(nounId),
     sender,
     value: value.toString(),
     extended,
@@ -21,8 +24,8 @@ ponder.on('NounsAuctionHouse:AuctionCreated', async ({ event, context }) => {
   const { nounId, startTime, endTime } = event.params
 
   await AuctionCreated.insert(id, {
-    nft: Number(nounId),
-    dao: 'Nouns',
+    dao,
+    tokenId: Number(nounId),
     startTime: Number(startTime),
     endTime: Number(endTime),
     createdAt: event.block.timestamp,
@@ -35,8 +38,8 @@ ponder.on('NounsAuctionHouse:AuctionExtended', async ({ event, context }) => {
   const { nounId, endTime } = event.params
 
   await AuctionExtended.insert(id, {
-    nft: Number(nounId),
-    dao: 'Nouns',
+    dao,
+    tokenId: Number(nounId),
     endTime: Number(endTime),
     createdAt: event.block.timestamp,
   })
@@ -50,7 +53,7 @@ ponder.on(
     const { minBidIncrementPercentage } = event.params
 
     await AuctionMinBidIncrementPercentageUpdated.insert(id, {
-      dao: 'Nouns',
+      dao,
       minBidIncrementPercentage: Number(minBidIncrementPercentage),
       createdAt: event.block.timestamp,
     })
@@ -65,7 +68,7 @@ ponder.on(
     const { reservePrice } = event.params
 
     await AuctionReservePriceUpdated.insert(id, {
-      dao: 'Nouns',
+      dao,
       reservePrice: reservePrice.toString(),
       createdAt: event.block.timestamp,
     })
@@ -78,8 +81,8 @@ ponder.on('NounsAuctionHouse:AuctionSettled', async ({ event, context }) => {
   const { nounId, winner, amount } = event.params
 
   await AuctionSettled.insert(id, {
-    nft: Number(nounId),
-    dao: 'Nouns',
+    dao,
+    tokenId: Number(nounId),
     winner,
     amount: amount.toString(),
     createdAt: event.block.timestamp,
@@ -94,7 +97,7 @@ ponder.on(
     const { timeBuffer } = event.params
 
     await AuctionTimeBufferUpdated.insert(id, {
-      dao: 'Nouns',
+      dao,
       timeBuffer: Number(timeBuffer),
       createdAt: event.block.timestamp,
     })
@@ -109,7 +112,7 @@ ponder.on(
     const { previousOwner, newOwner } = event.params
 
     await OwnershipTransferred.insert(id, {
-      dao: 'Nouns',
+      dao,
       previousOwner,
       newOwner,
       createdAt: event.block.timestamp,
@@ -123,7 +126,7 @@ ponder.on('NounsAuctionHouse:Paused', async ({ event, context }) => {
   const { account } = event.params
 
   await Paused.insert(id, {
-    dao: 'Nouns',
+    dao,
     account,
     createdAt: event.block.timestamp,
   })
@@ -135,7 +138,7 @@ ponder.on('NounsAuctionHouse:Unpaused', async ({ event, context }) => {
   const { account } = event.params
 
   await Unpaused.insert(id, {
-    dao: 'Nouns',
+    dao,
     account,
     createdAt: event.block.timestamp,
   })

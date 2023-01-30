@@ -14,5 +14,12 @@ export const config: PonderConfig = {
       address: '0x830bd73e4184cef73443c15111a1df14e495c706',
       startBlock: 12985451,
     },
+    {
+      name: 'NounsToken',
+      network: 'mainnet',
+      abi: './abis/Nouns/NounsToken.json',
+      address: '0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03',
+      startBlock: 12985438,
+    },
   ],
 }
