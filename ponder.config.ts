@@ -21,5 +21,12 @@ export const config: PonderConfig = {
       address: '0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03',
       startBlock: 12985438,
     },
+    {
+      name: 'NounsDAO',
+      network: 'mainnet',
+      abi: './abis/Nouns/NounsDAO.json',
+      address: '0x6f3e6272a167e8accb32072d08e0957f9c79223d',
+      startBlock: 12985453,
+    },
   ],
 }

@@ -136,3 +136,67 @@ type Transfer @entity {
   tokenId: Int!
   createdAt: Int!
 }
+
+type ProposalCanceled @entity {
+  id: ID!
+  dao: String!
+  proposalId: Int!
+  createdAt: Int!
+}
+
+type ProposalCreated @entity {
+  id: ID!
+  dao: String!
+  proposalId: Int!
+  proposer: String!
+  # targets: [String!]!
+  # values: [String!]!
+  # signatures: [String!]!
+  # calldatas: [String!]!
+  startBlock: Int!
+  endBlock: Int!
+  description: String!
+  createdAt: Int!
+}
+
+type ProposalExecuted @entity {
+  id: ID!
+  dao: String!
+  proposalId: Int!
+  createdAt: Int!
+}
+
+type ProposalQueued @entity {
+  id: ID!
+  dao: String!
+  proposalId: Int!
+  eta: Int!
+  createdAt: Int!
+}
+
+type ProposalVetoed @entity {
+  id: ID!
+  dao: String!
+  proposalId: Int!
+  createdAt: Int!
+}
+
+type RefundableVote @entity {
+  id: ID!
+  dao: String!
+  voter: String!
+  refundAmount: Int!
+  refundSent: Boolean!
+  createdAt: Int!
+}
+
+type VoteCast @entity {
+  id: ID!
+  dao: String!
+  voter: String!
+  proposalId: Int!
+  support: Int!
+  votes: Int!
+  reason: String!
+  createdAt: Int!
+}
