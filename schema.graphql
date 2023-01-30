@@ -1,0 +1,78 @@
+type AuctionBid @entity {
+  id: ID!
+  nft: Int!
+  dao: String!
+  sender: String!
+  value: String!
+  extended: Boolean!
+  createdAt: Int!
+}
+
+type AuctionCreated @entity {
+  id: ID!
+  nft: Int!
+  dao: String!
+  startTime: Int!
+  endTime: Int!
+  createdAt: Int!
+}
+
+type AuctionExtended @entity {
+  id: ID!
+  nft: Int!
+  dao: String!
+  endTime: Int!
+  createdAt: Int!
+}
+
+type AuctionMinBidIncrementPercentageUpdated @entity {
+  id: ID!
+  dao: String!
+  minBidIncrementPercentage: Int!
+  createdAt: Int!
+}
+
+type AuctionReservePriceUpdated @entity {
+  id: ID!
+  dao: String!
+  reservePrice: String!
+  createdAt: Int!
+}
+
+type AuctionSettled @entity {
+  id: ID!
+  nft: Int!
+  dao: String!
+  winner: String!
+  amount: String!
+  createdAt: Int!
+}
+
+type AuctionTimeBufferUpdated @entity {
+  id: ID!
+  dao: String!
+  timeBuffer: Int!
+  createdAt: Int!
+}
+
+type OwnershipTransferred @entity {
+  id: ID!
+  dao: String!
+  previousOwner: String!
+  newOwner: String!
+  createdAt: Int!
+}
+
+type Paused @entity {
+  id: ID!
+  dao: String!
+  account: String!
+  createdAt: Int!
+}
+
+type Unpaused @entity {
+  id: ID!
+  dao: String!
+  account: String!
+  createdAt: Int!
+}
