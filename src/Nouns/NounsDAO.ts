@@ -1,7 +1,5 @@
-import { DAO } from '../types'
+import { dao } from './'
 import { ponder } from '../../generated'
-
-const dao: DAO = 'Nouns'
 
 ponder.on('NounsDAO:ProposalCanceled', async ({ event, context }) => {
   const id = event.log.logId
@@ -9,7 +7,7 @@ ponder.on('NounsDAO:ProposalCanceled', async ({ event, context }) => {
   const { id: proposalId } = event.params
 
   await ProposalCanceled.insert(id, {
-    dao,
+    dao: dao.id,
     proposalId: Number(proposalId),
     createdAt: event.block.timestamp,
   })
@@ -31,7 +29,7 @@ ponder.on('NounsDAO:ProposalCreated', async ({ event, context }) => {
   } = event.params
 
   await ProposalCreated.insert(id, {
-    dao,
+    dao: dao.id,
     proposalId: Number(proposalId),
     proposer,
     targets: targets.map((target) => target.toString()),
@@ -56,7 +54,7 @@ ponder.on('NounsDAO:ProposalExecuted', async ({ event, context }) => {
   const { id: proposalId } = event.params
 
   await ProposalExecuted.insert(id, {
-    dao,
+    dao: dao.id,
     proposalId: Number(proposalId),
     createdAt: event.block.timestamp,
   })
@@ -68,7 +66,7 @@ ponder.on('NounsDAO:ProposalQueued', async ({ event, context }) => {
   const { id: proposalId, eta } = event.params
 
   await ProposalQueued.insert(id, {
-    dao,
+    dao: dao.id,
     proposalId: Number(proposalId),
     eta: Number(eta),
     createdAt: event.block.timestamp,
@@ -81,7 +79,7 @@ ponder.on('NounsDAO:ProposalVetoed', async ({ event, context }) => {
   const { id: proposalId } = event.params
 
   await ProposalVetoed.insert(id, {
-    dao,
+    dao: dao.id,
     proposalId: Number(proposalId),
     createdAt: event.block.timestamp,
   })
@@ -93,7 +91,7 @@ ponder.on('NounsDAO:RefundableVote', async ({ event, context }) => {
   const { voter, refundAmount, refundSent } = event.params
 
   await RefundableVote.insert(id, {
-    dao,
+    dao: dao.id,
     voter,
     refundAmount: refundAmount.toString(),
     refundSent: refundSent,
@@ -107,7 +105,7 @@ ponder.on('NounsDAO:VoteCast', async ({ event, context }) => {
   const { voter, proposalId, support, votes, reason } = event.params
 
   await VoteCast.insert(id, {
-    dao,
+    dao: dao.id,
     voter,
     proposalId: Number(proposalId),
     support: Number(support),

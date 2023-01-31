@@ -1,7 +1,13 @@
+type Dao @entity {
+  id: ID!
+  name: String!
+  symbol: String!
+}
+
 type AuctionBid @entity {
   id: ID!
   tokenId: Int!
-  dao: String!
+  dao: Dao!
   sender: String!
   value: String!
   extended: Boolean!

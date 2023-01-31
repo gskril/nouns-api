@@ -1,1 +1,7 @@
-export type DAO = 'Nouns' | 'Lil Nouns'
+export type DAO = {
+  id: string
+  body: {
+    name: string
+    symbol: string
+  }
+}

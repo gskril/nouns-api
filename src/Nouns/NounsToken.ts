@@ -1,7 +1,5 @@
-import { DAO } from '../types'
+import { dao } from './'
 import { ponder } from '../../generated'
-
-const dao: DAO = 'Nouns'
 
 ponder.on('NounsToken:Approval', ({ event, context }) => {
   const id = event.log.logId
@@ -9,7 +7,7 @@ ponder.on('NounsToken:Approval', ({ event, context }) => {
   const { owner, approved, tokenId } = event.params
 
   Approval.insert(id, {
-    dao,
+    dao: dao.id,
     owner,
     approved,
     tokenId: Number(tokenId),
@@ -23,7 +21,7 @@ ponder.on('NounsToken:ApprovalForAll', ({ event, context }) => {
   const { owner, operator, approved } = event.params
 
   ApprovalForAll.insert(id, {
-    dao,
+    dao: dao.id,
     owner,
     operator,
     approved,
@@ -37,7 +35,7 @@ ponder.on('NounsToken:DelegateChanged', ({ event, context }) => {
   const { delegator, fromDelegate, toDelegate } = event.params
 
   DelegateChanged.insert(id, {
-    dao,
+    dao: dao.id,
     delegator,
     fromDelegate,
     toDelegate,
@@ -51,7 +49,7 @@ ponder.on('NounsToken:DelegateVotesChanged', ({ event, context }) => {
   const { delegate, previousBalance, newBalance } = event.params
 
   DelegateVotesChanged.insert(id, {
-    dao,
+    dao: dao.id,
     delegate,
     previousBalance: Number(previousBalance),
     newBalance: Number(newBalance),
@@ -65,7 +63,7 @@ ponder.on('NounsToken:NounBurned', ({ event, context }) => {
   const { tokenId } = event.params
 
   NounBurned.insert(id, {
-    dao,
+    dao: dao.id,
     tokenId: Number(tokenId),
     createdAt: event.block.timestamp,
   })
@@ -78,7 +76,7 @@ ponder.on('NounsToken:NounCreated', ({ event, context }) => {
   const { tokenId, seed } = event.params
 
   NounCreated.insert(id, {
-    dao,
+    dao: dao.id,
     tokenId: Number(tokenId),
     seed: JSON.stringify({
       background: Number(seed.background),
@@ -97,7 +95,7 @@ ponder.on('NounsToken:Transfer', ({ event, context }) => {
   const { from, to, tokenId } = event.params
 
   Transfer.insert(id, {
-    dao,
+    dao: dao.id,
     from,
     to,
     tokenId: Number(tokenId),
