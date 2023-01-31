@@ -149,10 +149,10 @@ type ProposalCreated @entity {
   dao: String!
   proposalId: Int!
   proposer: String!
-  # targets: [String!]!
-  # values: [String!]!
-  # signatures: [String!]!
-  # calldatas: [String!]!
+  targets: [String!]!
+  values: [String!]!
+  signatures: [String!]!
+  calldatas: [String!]!
   startBlock: Int!
   endBlock: Int!
   description: String!

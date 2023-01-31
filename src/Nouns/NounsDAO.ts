@@ -15,7 +15,6 @@ ponder.on('NounsDAO:ProposalCanceled', async ({ event, context }) => {
   })
 })
 
-// TODO: figure out data types
 ponder.on('NounsDAO:ProposalCreated', async ({ event, context }) => {
   const id = event.log.logId
   const { ProposalCreated } = context.entities
@@ -35,10 +34,10 @@ ponder.on('NounsDAO:ProposalCreated', async ({ event, context }) => {
     dao,
     proposalId: Number(proposalId),
     proposer,
-    // targets: targets.map((target) => target.toString()),
-    // values: values.map((value) => value.toString()),
-    // signatures: signatures.map((signature) => signature.toString()),
-    // calldatas: calldatas.map((calldata) => calldata.toString()),
+    targets: targets.map((target) => target.toString()),
+    values: values.map((value) => value.toString()),
+    signatures: signatures.map((signature) => signature.toString()),
+    calldatas: calldatas.map((calldata) => calldata.toString()),
     startBlock: Number(startBlock),
     endBlock: Number(endBlock),
     description: description.toString(),
@@ -96,7 +95,7 @@ ponder.on('NounsDAO:RefundableVote', async ({ event, context }) => {
   await RefundableVote.insert(id, {
     dao,
     voter,
-    refundAmount: Number(refundAmount),
+    refundAmount: refundAmount.toString(),
     refundSent: refundSent,
     createdAt: event.block.timestamp,
   })

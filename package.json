@@ -6,12 +6,12 @@
     "codegen": "ponder codegen"
   },
   "dependencies": {
-    "@ponder/core": "latest",
-    "@ponder/graphql": "latest"
+    "@ponder/core": "^0.0.29",
+    "@ponder/graphql": "^0.0.22"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
-    "ethers": "^5.6.9"
+    "ethers": "^5.7.2"
   },
   "engines": {
     "node": ">=16.0.0 <19.0.0"
