@@ -185,7 +185,7 @@ type RefundableVote @entity {
   id: ID!
   dao: String!
   voter: String!
-  refundAmount: Int!
+  refundAmount: String!
   refundSent: Boolean!
   createdAt: Int!
 }
