@@ -59,10 +59,10 @@ ponder.on('NounsToken:DelegateVotesChanged', ({ event, context }) => {
 
 ponder.on('NounsToken:NounBurned', ({ event, context }) => {
   const id = event.log.logId
-  const { NounBurned } = context.entities
+  const { NftBurned } = context.entities
   const { tokenId } = event.params
 
-  NounBurned.insert(id, {
+  NftBurned.insert(id, {
     dao: dao.id,
     tokenId: Number(tokenId),
     createdAt: event.block.timestamp,
@@ -72,10 +72,10 @@ ponder.on('NounsToken:NounBurned', ({ event, context }) => {
 // TODO: Add seed type to NounCreated schema
 ponder.on('NounsToken:NounCreated', ({ event, context }) => {
   const id = event.log.logId
-  const { NounCreated } = context.entities
+  const { NftCreated } = context.entities
   const { tokenId, seed } = event.params
 
-  NounCreated.insert(id, {
+  NftCreated.insert(id, {
     dao: dao.id,
     tokenId: Number(tokenId),
     seed: JSON.stringify({

@@ -119,14 +119,14 @@ type DelegateVotesChanged @entity {
   createdAt: Int!
 }
 
-type NounBurned @entity {
+type NftBurned @entity {
   id: ID!
   dao: String!
   tokenId: Int!
   createdAt: Int!
 }
 
-type NounCreated @entity {
+type NftCreated @entity {
   id: ID!
   dao: String!
   seed: String!
