@@ -63,5 +63,26 @@ export const config: PonderConfig = {
       address: '0x558BFFF0D583416f7C4e380625c7865821b8E95C',
       startBlock: 14998510,
     },
+    {
+      name: 'BuilderAuctionHouse',
+      network: 'mainnet',
+      abi: './abis/Builder/auctionHouse.json',
+      address: '0x658d3a1b6dabcfbaa8b75cc182bf33efefdc200d',
+      startBlock: 15876071,
+    },
+    {
+      name: 'BuilderToken',
+      network: 'mainnet',
+      abi: './abis/Builder/token.json',
+      address: '0xdf9b7d26c8fc806b1ae6273684556761ff02d422',
+      startBlock: 15876071,
+    },
+    {
+      name: 'BuilderDAO',
+      network: 'mainnet',
+      abi: './abis/Builder/dao.json',
+      address: '0xe3f8d5488c69d18abda42fca10c177d7c19e8b1a',
+      startBlock: 15876071,
+    },
   ],
 }
