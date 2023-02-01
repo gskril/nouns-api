@@ -10,7 +10,7 @@ type AuctionBid @entity {
   dao: Dao!
   sender: String!
   value: String!
-  extended: Boolean!
+  extended: Boolean
   createdAt: Int!
 }
 

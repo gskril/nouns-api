@@ -49,5 +49,19 @@ export const config: PonderConfig = {
       address: '0x5d2c31ce16924c2a71d317e5bbfd5ce387854039',
       startBlock: 14736719,
     },
+    {
+      name: 'GnarsAuctionHouse',
+      network: 'mainnet',
+      abi: './abis/Gnars/auctionHouse.json',
+      address: '0xc28e0d3c00296dd8c5c3f2e9707361920f92a209',
+      startBlock: 14998513,
+    },
+    {
+      name: 'GnarsToken',
+      network: 'mainnet',
+      abi: './abis/Gnars/token.json',
+      address: '0x558BFFF0D583416f7C4e380625c7865821b8E95C',
+      startBlock: 14998510,
+    },
   ],
 }
