@@ -28,5 +28,26 @@ export const config: PonderConfig = {
       address: '0x6f3e6272a167e8accb32072d08e0957f9c79223d',
       startBlock: 12985453,
     },
+    {
+      name: 'LilNounsAuctionHouse',
+      network: 'mainnet',
+      abi: './abis/LilNouns/LilNounsAuctionHouse.json',
+      address: '0x55e0f7a3bb39a28bd7bcc458e04b3cf00ad3219e',
+      startBlock: 14736713,
+    },
+    {
+      name: 'LilNounsToken',
+      network: 'mainnet',
+      abi: './abis/LilNouns/LilNounsToken.json',
+      address: '0x4b10701bfd7bfedc47d50562b76b436fbb5bdb3b',
+      startBlock: 0,
+    },
+    {
+      name: 'LilNounsDAO',
+      network: 'mainnet',
+      abi: './abis/Nouns/NounsDAO.json',
+      address: '0x5d2c31ce16924c2a71d317e5bbfd5ce387854039',
+      startBlock: 14736719,
+    },
   ],
 }
