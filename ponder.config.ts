@@ -40,7 +40,7 @@ export const config: PonderConfig = {
       network: 'mainnet',
       abi: './abis/LilNouns/LilNounsToken.json',
       address: '0x4b10701bfd7bfedc47d50562b76b436fbb5bdb3b',
-      startBlock: 0,
+      startBlock: 14736710,
     },
     {
       name: 'LilNounsDAO',
