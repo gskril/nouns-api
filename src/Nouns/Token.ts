@@ -1,7 +1,7 @@
 import { dao } from './'
 import { ponder } from '../../generated'
 
-ponder.on('NounsToken:ApprovalEvent', ({ event, context }) => {
+ponder.on('NounsToken:Approval', ({ event, context }) => {
   const id = event.log.logId
   const { ApprovalEvent } = context.entities
   const { owner, approved, tokenId } = event.params
@@ -15,7 +15,7 @@ ponder.on('NounsToken:ApprovalEvent', ({ event, context }) => {
   })
 })
 
-ponder.on('NounsToken:ApprovalForAllEvent', ({ event, context }) => {
+ponder.on('NounsToken:ApprovalForAll', ({ event, context }) => {
   const id = event.log.logId
   const { ApprovalForAllEvent } = context.entities
   const { owner, operator, approved } = event.params
@@ -29,7 +29,7 @@ ponder.on('NounsToken:ApprovalForAllEvent', ({ event, context }) => {
   })
 })
 
-ponder.on('NounsToken:DelegateChangedEvent', ({ event, context }) => {
+ponder.on('NounsToken:DelegateChanged', ({ event, context }) => {
   const id = event.log.logId
   const { DelegateChangedEvent } = context.entities
   const { delegator, fromDelegate, toDelegate } = event.params
@@ -43,7 +43,7 @@ ponder.on('NounsToken:DelegateChangedEvent', ({ event, context }) => {
   })
 })
 
-ponder.on('NounsToken:DelegateVotesChangedEvent', ({ event, context }) => {
+ponder.on('NounsToken:DelegateVotesChanged', ({ event, context }) => {
   const id = event.log.logId
   const { DelegateVotesChangedEvent } = context.entities
   const { delegate, previousBalance, newBalance } = event.params
@@ -89,7 +89,7 @@ ponder.on('NounsToken:NounCreated', ({ event, context }) => {
   })
 })
 
-ponder.on('NounsToken:TransferEvent', ({ event, context }) => {
+ponder.on('NounsToken:Transfer', ({ event, context }) => {
   const id = event.log.logId
   const { TransferEvent } = context.entities
   const { from, to, tokenId } = event.params

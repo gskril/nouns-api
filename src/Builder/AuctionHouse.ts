@@ -1,7 +1,7 @@
 import { dao } from '.'
 import { ponder } from '../../generated'
 
-ponder.on('BuilderAuctionHouse:AuctionBidEvent', async ({ event, context }) => {
+ponder.on('BuilderAuctionHouse:AuctionBid', async ({ event, context }) => {
   const id = event.log.logId
   const { AuctionBidEvent, Dao } = context.entities
   const { tokenId, bidder, amount, extended } = event.params
@@ -18,22 +18,19 @@ ponder.on('BuilderAuctionHouse:AuctionBidEvent', async ({ event, context }) => {
   })
 })
 
-ponder.on(
-  'BuilderAuctionHouse:AuctionCreatedEvent',
-  async ({ event, context }) => {
-    const id = event.log.logId
-    const { AuctionCreatedEvent } = context.entities
-    const { tokenId, startTime, endTime } = event.params
+ponder.on('BuilderAuctionHouse:AuctionCreated', async ({ event, context }) => {
+  const id = event.log.logId
+  const { AuctionCreatedEvent } = context.entities
+  const { tokenId, startTime, endTime } = event.params
 
-    await AuctionCreatedEvent.insert(id, {
-      dao: dao.id,
-      tokenId: Number(tokenId),
-      startTime: Number(startTime),
-      endTime: Number(endTime),
-      createdAt: event.block.timestamp,
-    })
-  }
-)
+  await AuctionCreatedEvent.insert(id, {
+    dao: dao.id,
+    tokenId: Number(tokenId),
+    startTime: Number(startTime),
+    endTime: Number(endTime),
+    createdAt: event.block.timestamp,
+  })
+})
 
 ponder.on(
   'BuilderAuctionHouse:MinBidIncrementPercentageUpdated',
@@ -65,22 +62,19 @@ ponder.on(
   }
 )
 
-ponder.on(
-  'BuilderAuctionHouse:AuctionSettledEvent',
-  async ({ event, context }) => {
-    const id = event.log.logId
-    const { AuctionSettledEvent } = context.entities
-    const { tokenId, winner, amount } = event.params
+ponder.on('BuilderAuctionHouse:AuctionSettled', async ({ event, context }) => {
+  const id = event.log.logId
+  const { AuctionSettledEvent } = context.entities
+  const { tokenId, winner, amount } = event.params
 
-    await AuctionSettledEvent.insert(id, {
-      dao: dao.id,
-      tokenId: Number(tokenId),
-      winner,
-      amount: amount.toString(),
-      createdAt: event.block.timestamp,
-    })
-  }
-)
+  await AuctionSettledEvent.insert(id, {
+    dao: dao.id,
+    tokenId: Number(tokenId),
+    winner,
+    amount: amount.toString(),
+    createdAt: event.block.timestamp,
+  })
+})
 
 ponder.on(
   'BuilderAuctionHouse:TimeBufferUpdated',
@@ -110,7 +104,7 @@ ponder.on('BuilderAuctionHouse:OwnerUpdated', async ({ event, context }) => {
   })
 })
 
-ponder.on('BuilderAuctionHouse:PausedEvent', async ({ event, context }) => {
+ponder.on('BuilderAuctionHouse:Paused', async ({ event, context }) => {
   const id = event.log.logId
   const { PausedEvent } = context.entities
   const { user: account } = event.params
@@ -122,7 +116,7 @@ ponder.on('BuilderAuctionHouse:PausedEvent', async ({ event, context }) => {
   })
 })
 
-ponder.on('BuilderAuctionHouse:UnpausedEvent', async ({ event, context }) => {
+ponder.on('BuilderAuctionHouse:Unpaused', async ({ event, context }) => {
   const id = event.log.logId
   const { UnpausedEvent } = context.entities
   const { user: account } = event.params
