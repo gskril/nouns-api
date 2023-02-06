@@ -1,12 +1,12 @@
 import { dao } from './'
 import { ponder } from '../../generated'
 
-ponder.on('NounsToken:Approval', ({ event, context }) => {
+ponder.on('NounsToken:ApprovalEvent', ({ event, context }) => {
   const id = event.log.logId
-  const { Approval } = context.entities
+  const { ApprovalEvent } = context.entities
   const { owner, approved, tokenId } = event.params
 
-  Approval.insert(id, {
+  ApprovalEvent.insert(id, {
     dao: dao.id,
     owner,
     approved,
@@ -15,12 +15,12 @@ ponder.on('NounsToken:Approval', ({ event, context }) => {
   })
 })
 
-ponder.on('NounsToken:ApprovalForAll', ({ event, context }) => {
+ponder.on('NounsToken:ApprovalForAllEvent', ({ event, context }) => {
   const id = event.log.logId
-  const { ApprovalForAll } = context.entities
+  const { ApprovalForAllEvent } = context.entities
   const { owner, operator, approved } = event.params
 
-  ApprovalForAll.insert(id, {
+  ApprovalForAllEvent.insert(id, {
     dao: dao.id,
     owner,
     operator,
@@ -29,12 +29,12 @@ ponder.on('NounsToken:ApprovalForAll', ({ event, context }) => {
   })
 })
 
-ponder.on('NounsToken:DelegateChanged', ({ event, context }) => {
+ponder.on('NounsToken:DelegateChangedEvent', ({ event, context }) => {
   const id = event.log.logId
-  const { DelegateChanged } = context.entities
+  const { DelegateChangedEvent } = context.entities
   const { delegator, fromDelegate, toDelegate } = event.params
 
-  DelegateChanged.insert(id, {
+  DelegateChangedEvent.insert(id, {
     dao: dao.id,
     delegator,
     fromDelegate,
@@ -43,12 +43,12 @@ ponder.on('NounsToken:DelegateChanged', ({ event, context }) => {
   })
 })
 
-ponder.on('NounsToken:DelegateVotesChanged', ({ event, context }) => {
+ponder.on('NounsToken:DelegateVotesChangedEvent', ({ event, context }) => {
   const id = event.log.logId
-  const { DelegateVotesChanged } = context.entities
+  const { DelegateVotesChangedEvent } = context.entities
   const { delegate, previousBalance, newBalance } = event.params
 
-  DelegateVotesChanged.insert(id, {
+  DelegateVotesChangedEvent.insert(id, {
     dao: dao.id,
     delegate,
     previousBalance: Number(previousBalance),
@@ -59,10 +59,10 @@ ponder.on('NounsToken:DelegateVotesChanged', ({ event, context }) => {
 
 ponder.on('NounsToken:NounBurned', ({ event, context }) => {
   const id = event.log.logId
-  const { NftBurned } = context.entities
+  const { NftBurnedEvent } = context.entities
   const { tokenId } = event.params
 
-  NftBurned.insert(id, {
+  NftBurnedEvent.insert(id, {
     dao: dao.id,
     tokenId: Number(tokenId),
     createdAt: event.block.timestamp,
@@ -72,10 +72,10 @@ ponder.on('NounsToken:NounBurned', ({ event, context }) => {
 // TODO: Add seed type to NounCreated schema
 ponder.on('NounsToken:NounCreated', ({ event, context }) => {
   const id = event.log.logId
-  const { NftCreated } = context.entities
+  const { NftCreatedEvent } = context.entities
   const { tokenId, seed } = event.params
 
-  NftCreated.insert(id, {
+  NftCreatedEvent.insert(id, {
     dao: dao.id,
     tokenId: Number(tokenId),
     seed: JSON.stringify({
@@ -89,12 +89,12 @@ ponder.on('NounsToken:NounCreated', ({ event, context }) => {
   })
 })
 
-ponder.on('NounsToken:Transfer', ({ event, context }) => {
+ponder.on('NounsToken:TransferEvent', ({ event, context }) => {
   const id = event.log.logId
-  const { Transfer } = context.entities
+  const { TransferEvent } = context.entities
   const { from, to, tokenId } = event.params
 
-  Transfer.insert(id, {
+  TransferEvent.insert(id, {
     dao: dao.id,
     from,
     to,

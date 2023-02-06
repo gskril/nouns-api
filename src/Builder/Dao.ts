@@ -3,10 +3,10 @@ import { ponder } from '../../generated'
 
 ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalCanceled } = context.entities
+  const { ProposalCanceledEvent } = context.entities
   const { proposalId } = event.params
 
-  await ProposalCanceled.insert(id, {
+  await ProposalCanceledEvent.insert(id, {
     dao: dao.id,
     proposalId: Number(proposalId),
     createdAt: event.block.timestamp,
@@ -15,19 +15,19 @@ ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
 
 ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalCreated } = context.entities
+  const { ProposalCreatedEvent } = context.entities
   const { proposalId, proposal, targets, values, calldatas, description } =
     event.params
 
-  await ProposalCreated.insert(id, {
+  await ProposalCreatedEvent.insert(id, {
     dao: dao.id,
     proposalId: Number(proposalId),
     proposer: proposal.proposer,
     targets: targets.map((target) => target.toString()),
     values: values.map((value) => value.toString()),
     calldatas: calldatas.map((calldata) => calldata.toString()),
-    startBlock: Number(proposal.voteStart),
-    endBlock: Number(proposal.voteEnd),
+    voteStart: Number(proposal.voteStart),
+    voteEnd: Number(proposal.voteEnd),
     description: description.toString(),
     createdAt: event.block.timestamp,
   })
@@ -35,10 +35,10 @@ ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
 
 ponder.on('BuilderDAO:ProposalExecuted', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalExecuted } = context.entities
+  const { ProposalExecutedEvent } = context.entities
   const { proposalId } = event.params
 
-  await ProposalExecuted.insert(id, {
+  await ProposalExecutedEvent.insert(id, {
     dao: dao.id,
     proposalId: Number(proposalId),
     createdAt: event.block.timestamp,
@@ -47,10 +47,10 @@ ponder.on('BuilderDAO:ProposalExecuted', async ({ event, context }) => {
 
 ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalQueued } = context.entities
+  const { ProposalQueuedEvent } = context.entities
   const { proposalId, eta } = event.params
 
-  await ProposalQueued.insert(id, {
+  await ProposalQueuedEvent.insert(id, {
     dao: dao.id,
     proposalId: Number(proposalId),
     eta: Number(eta),
@@ -60,10 +60,10 @@ ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
 
 ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalVetoed } = context.entities
+  const { ProposalVetoedEvent } = context.entities
   const { proposalId } = event.params
 
-  await ProposalVetoed.insert(id, {
+  await ProposalVetoedEvent.insert(id, {
     dao: dao.id,
     proposalId: Number(proposalId),
     createdAt: event.block.timestamp,
@@ -72,10 +72,10 @@ ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
 
 ponder.on('BuilderDAO:VoteCast', async ({ event, context }) => {
   const id = event.log.logId
-  const { VoteCast } = context.entities
+  const { VoteCastEvent } = context.entities
   const { voter, proposalId, support, weight: votes, reason } = event.params
 
-  await VoteCast.insert(id, {
+  await VoteCastEvent.insert(id, {
     dao: dao.id,
     voter,
     proposalId: Number(proposalId),

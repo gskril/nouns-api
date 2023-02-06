@@ -4,7 +4,7 @@ type Dao @entity {
   symbol: String!
 }
 
-type AuctionBid @entity {
+type AuctionBidEvent @entity {
   id: ID!
   tokenId: Int!
   dao: Dao!
@@ -14,191 +14,191 @@ type AuctionBid @entity {
   createdAt: Int!
 }
 
-type AuctionCreated @entity {
+type AuctionCreatedEvent @entity {
   id: ID!
   tokenId: Int!
-  dao: String!
+  dao: Dao!
   startTime: Int!
   endTime: Int!
   createdAt: Int!
 }
 
-type AuctionExtended @entity {
+type AuctionExtendedEvent @entity {
   id: ID!
   tokenId: Int!
-  dao: String!
+  dao: Dao!
   endTime: Int!
   createdAt: Int!
 }
 
-type AuctionMinBidIncrementPercentageUpdated @entity {
+type AuctionMinBidIncrementPercentageUpdatedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   minBidIncrementPercentage: Int!
   createdAt: Int!
 }
 
-type AuctionReservePriceUpdated @entity {
+type AuctionReservePriceUpdatedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   reservePrice: String!
   createdAt: Int!
 }
 
-type AuctionSettled @entity {
+type AuctionSettledEvent @entity {
   id: ID!
   tokenId: Int!
-  dao: String!
+  dao: Dao!
   winner: String!
   amount: String!
   createdAt: Int!
 }
 
-type AuctionTimeBufferUpdated @entity {
+type AuctionTimeBufferUpdatedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   timeBuffer: Int!
   createdAt: Int!
 }
 
-type OwnershipTransferred @entity {
+type OwnershipTransferEventredEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   previousOwner: String!
   newOwner: String!
   createdAt: Int!
 }
 
-type Paused @entity {
+type PausedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   account: String!
   createdAt: Int!
 }
 
-type Unpaused @entity {
+type UnpausedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   account: String!
   createdAt: Int!
 }
 
-type Approval @entity {
+type ApprovalEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   owner: String!
   approved: String!
   tokenId: Int!
   createdAt: Int!
 }
 
-type ApprovalForAll @entity {
+type ApprovalForAllEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   owner: String!
   operator: String!
   approved: Boolean!
   createdAt: Int!
 }
 
-type DelegateChanged @entity {
+type DelegateChangedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   delegator: String!
   fromDelegate: String!
   toDelegate: String!
   createdAt: Int!
 }
 
-type DelegateVotesChanged @entity {
+type DelegateVotesChangedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   delegate: String!
   previousBalance: Int!
   newBalance: Int!
   createdAt: Int!
 }
 
-type NftBurned @entity {
+type NftBurnedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   tokenId: Int!
   createdAt: Int!
 }
 
-type NftCreated @entity {
+type NftCreatedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   seed: String!
   tokenId: Int!
   createdAt: Int!
 }
 
-type Transfer @entity {
+type TransferEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   from: String!
   to: String!
   tokenId: Int!
   createdAt: Int!
 }
 
-type ProposalCanceled @entity {
+type ProposalCanceledEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   proposalId: Int!
   createdAt: Int!
 }
 
-type ProposalCreated @entity {
+type ProposalCreatedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   proposalId: Int!
   proposer: String!
   targets: [String!]!
   values: [String!]!
   signatures: [String]
   calldatas: [String!]!
-  startBlock: Int!
-  endBlock: Int!
+  voteStart: Int!
+  voteEnd: Int!
   description: String!
   createdAt: Int!
 }
 
-type ProposalExecuted @entity {
+type ProposalExecutedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   proposalId: Int!
   createdAt: Int!
 }
 
-type ProposalQueued @entity {
+type ProposalQueuedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   proposalId: Int!
   eta: Int!
   createdAt: Int!
 }
 
-type ProposalVetoed @entity {
+type ProposalVetoedEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   proposalId: Int!
   createdAt: Int!
 }
 
-type RefundableVote @entity {
+type RefundableVoteEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   voter: String!
   refundAmount: String!
   refundSent: Boolean!
   createdAt: Int!
 }
 
-type VoteCast @entity {
+type VoteCastEvent @entity {
   id: ID!
-  dao: String!
+  dao: Dao!
   voter: String!
   proposalId: Int!
   support: Int!

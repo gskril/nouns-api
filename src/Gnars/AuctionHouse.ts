@@ -1,14 +1,14 @@
 import { dao } from '.'
 import { ponder } from '../../generated'
 
-ponder.on('GnarsAuctionHouse:AuctionBid', async ({ event, context }) => {
+ponder.on('GnarsAuctionHouse:AuctionBidEvent', async ({ event, context }) => {
   const id = event.log.logId
-  const { AuctionBid, Dao } = context.entities
+  const { AuctionBidEvent, Dao } = context.entities
   const { gnarId, sender, value } = event.params
 
   await Dao.upsert(dao.id, dao.body)
 
-  await AuctionBid.insert(id, {
+  await AuctionBidEvent.insert(id, {
     dao: dao.id,
     tokenId: Number(gnarId),
     sender,
@@ -17,28 +17,31 @@ ponder.on('GnarsAuctionHouse:AuctionBid', async ({ event, context }) => {
   })
 })
 
-ponder.on('GnarsAuctionHouse:AuctionCreated', async ({ event, context }) => {
-  const id = event.log.logId
-  const { AuctionCreated } = context.entities
-  const { gnarId, startTimestamp, endTimestamp } = event.params
-
-  await AuctionCreated.insert(id, {
-    dao: dao.id,
-    tokenId: Number(gnarId),
-    startTime: Number(startTimestamp),
-    endTime: Number(endTimestamp),
-    createdAt: event.block.timestamp,
-  })
-})
-
 ponder.on(
-  'GnarsAuctionHouse:AuctionMinBidIncrementPercentageUpdated',
+  'GnarsAuctionHouse:AuctionCreatedEvent',
   async ({ event, context }) => {
     const id = event.log.logId
-    const { AuctionMinBidIncrementPercentageUpdated } = context.entities
+    const { AuctionCreatedEvent } = context.entities
+    const { gnarId, startTimestamp, endTimestamp } = event.params
+
+    await AuctionCreatedEvent.insert(id, {
+      dao: dao.id,
+      tokenId: Number(gnarId),
+      startTime: Number(startTimestamp),
+      endTime: Number(endTimestamp),
+      createdAt: event.block.timestamp,
+    })
+  }
+)
+
+ponder.on(
+  'GnarsAuctionHouse:AuctionMinBidIncrementPercentageUpdatedEvent',
+  async ({ event, context }) => {
+    const id = event.log.logId
+    const { AuctionMinBidIncrementPercentageUpdatedEvent } = context.entities
     const { minBidIncrementPercentage } = event.params
 
-    await AuctionMinBidIncrementPercentageUpdated.insert(id, {
+    await AuctionMinBidIncrementPercentageUpdatedEvent.insert(id, {
       dao: dao.id,
       minBidIncrementPercentage: Number(minBidIncrementPercentage),
       createdAt: event.block.timestamp,
@@ -47,13 +50,13 @@ ponder.on(
 )
 
 ponder.on(
-  'GnarsAuctionHouse:AuctionReservePriceUpdated',
+  'GnarsAuctionHouse:AuctionReservePriceUpdatedEvent',
   async ({ event, context }) => {
     const id = event.log.logId
-    const { AuctionReservePriceUpdated } = context.entities
+    const { AuctionReservePriceUpdatedEvent } = context.entities
     const { reservePrice } = event.params
 
-    await AuctionReservePriceUpdated.insert(id, {
+    await AuctionReservePriceUpdatedEvent.insert(id, {
       dao: dao.id,
       reservePrice: reservePrice.toString(),
       createdAt: event.block.timestamp,
@@ -61,28 +64,31 @@ ponder.on(
   }
 )
 
-ponder.on('GnarsAuctionHouse:AuctionSettled', async ({ event, context }) => {
-  const id = event.log.logId
-  const { AuctionSettled } = context.entities
-  const { gnarId, winner, amount } = event.params
-
-  await AuctionSettled.insert(id, {
-    dao: dao.id,
-    tokenId: Number(gnarId),
-    winner,
-    amount: amount.toString(),
-    createdAt: event.block.timestamp,
-  })
-})
-
 ponder.on(
-  'GnarsAuctionHouse:OwnershipTransferred',
+  'GnarsAuctionHouse:AuctionSettledEvent',
   async ({ event, context }) => {
     const id = event.log.logId
-    const { OwnershipTransferred } = context.entities
+    const { AuctionSettledEvent } = context.entities
+    const { gnarId, winner, amount } = event.params
+
+    await AuctionSettledEvent.insert(id, {
+      dao: dao.id,
+      tokenId: Number(gnarId),
+      winner,
+      amount: amount.toString(),
+      createdAt: event.block.timestamp,
+    })
+  }
+)
+
+ponder.on(
+  'GnarsAuctionHouse:OwnershipTransferEventredEvent',
+  async ({ event, context }) => {
+    const id = event.log.logId
+    const { OwnershipTransferEventredEvent } = context.entities
     const { previousOwner, newOwner } = event.params
 
-    await OwnershipTransferred.insert(id, {
+    await OwnershipTransferEventredEvent.insert(id, {
       dao: dao.id,
       previousOwner,
       newOwner,
@@ -91,24 +97,24 @@ ponder.on(
   }
 )
 
-ponder.on('GnarsAuctionHouse:Paused', async ({ event, context }) => {
+ponder.on('GnarsAuctionHouse:PausedEvent', async ({ event, context }) => {
   const id = event.log.logId
-  const { Paused } = context.entities
+  const { PausedEvent } = context.entities
   const { account } = event.params
 
-  await Paused.insert(id, {
+  await PausedEvent.insert(id, {
     dao: dao.id,
     account,
     createdAt: event.block.timestamp,
   })
 })
 
-ponder.on('GnarsAuctionHouse:Unpaused', async ({ event, context }) => {
+ponder.on('GnarsAuctionHouse:UnpausedEvent', async ({ event, context }) => {
   const id = event.log.logId
-  const { Unpaused } = context.entities
+  const { UnpausedEvent } = context.entities
   const { account } = event.params
 
-  await Unpaused.insert(id, {
+  await UnpausedEvent.insert(id, {
     dao: dao.id,
     account,
     createdAt: event.block.timestamp,
