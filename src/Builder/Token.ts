@@ -1,7 +1,7 @@
 import { dao } from '.'
 import { ponder } from '../../generated'
 
-ponder.on('BuilderToken:ApprovalEvent', ({ event, context }) => {
+ponder.on('BuilderToken:Approval', ({ event, context }) => {
   const id = event.log.logId
   const { ApprovalEvent } = context.entities
   const { owner, approved, tokenId } = event.params
@@ -15,7 +15,7 @@ ponder.on('BuilderToken:ApprovalEvent', ({ event, context }) => {
   })
 })
 
-ponder.on('BuilderToken:ApprovalForAllEvent', ({ event, context }) => {
+ponder.on('BuilderToken:ApprovalForAll', ({ event, context }) => {
   const id = event.log.logId
   const { ApprovalForAllEvent } = context.entities
   const { owner, operator, approved } = event.params
@@ -29,7 +29,7 @@ ponder.on('BuilderToken:ApprovalForAllEvent', ({ event, context }) => {
   })
 })
 
-ponder.on('BuilderToken:DelegateChangedEvent', ({ event, context }) => {
+ponder.on('BuilderToken:DelegateChanged', ({ event, context }) => {
   const id = event.log.logId
   const { DelegateChangedEvent } = context.entities
   const { delegator, from: fromDelegate, to: toDelegate } = event.params
@@ -43,7 +43,7 @@ ponder.on('BuilderToken:DelegateChangedEvent', ({ event, context }) => {
   })
 })
 
-ponder.on('BuilderToken:DelegateVotesChangedEvent', ({ event, context }) => {
+ponder.on('BuilderToken:DelegateVotesChanged', ({ event, context }) => {
   const id = event.log.logId
   const { DelegateVotesChangedEvent } = context.entities
   const { delegate, prevTotalVotes, newTotalVotes } = event.params
@@ -57,7 +57,7 @@ ponder.on('BuilderToken:DelegateVotesChangedEvent', ({ event, context }) => {
   })
 })
 
-ponder.on('BuilderToken:TransferEvent', ({ event, context }) => {
+ponder.on('BuilderToken:Transfer', ({ event, context }) => {
   const id = event.log.logId
   const { TransferEvent } = context.entities
   const { from, to, tokenId } = event.params

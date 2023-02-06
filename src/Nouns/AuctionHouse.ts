@@ -105,7 +105,7 @@ ponder.on(
 )
 
 ponder.on(
-  'NounsAuctionHouse:OwnershipTransferEventred',
+  'NounsAuctionHouse:OwnershipTransferred',
   async ({ event, context }) => {
     const id = event.log.logId
     const { OwnershipTransferEventredEvent } = context.entities
