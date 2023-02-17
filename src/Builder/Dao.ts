@@ -1,6 +1,7 @@
 import { dao } from '.'
 import { ponder } from '../../generated'
 
+// TODO: fix proposalId across all events (it's hex, needs to be a number)
 ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
   const id = event.log.logId
   const { ProposalCanceledEvent } = context.entities

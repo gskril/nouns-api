@@ -77,12 +77,12 @@ export const config: PonderConfig = {
       address: '0xdf9b7d26c8fc806b1ae6273684556761ff02d422',
       startBlock: 15876071,
     },
-    {
-      name: 'BuilderDAO',
-      network: 'mainnet',
-      abi: './abis/Builder/dao.json',
-      address: '0xe3f8d5488c69d18abda42fca10c177d7c19e8b1a',
-      startBlock: 15876071,
-    },
+    // {
+    //   name: 'BuilderDAO',
+    //   network: 'mainnet',
+    //   abi: './abis/Builder/dao.json',
+    //   address: '0xe3f8d5488c69d18abda42fca10c177d7c19e8b1a',
+    //   startBlock: 15876071,
+    // },
   ],
 }
