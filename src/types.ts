@@ -14,3 +14,8 @@ export type GenericContractEvent = {
   block: Block
   transaction: Transaction
 }
+
+export type BuilderDaosProposal = {
+  hexId: string
+  index: number
+}
