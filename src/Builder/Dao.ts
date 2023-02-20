@@ -1,15 +1,21 @@
 import { dao } from '.'
 import { ponder } from '../../generated'
+import type { BuilderDaosProposal } from '../types'
 
-// TODO: fix proposalId across all events (it's hex, needs to be a number)
+let proposals: BuilderDaosProposal[] = new Array()
+
 ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
   const id = event.log.logId
   const { ProposalCanceledEvent } = context.entities
   const { proposalId } = event.params
 
+  const proposalIndex = proposals.find(
+    (proposal) => proposal.hexId === proposalId.toString()
+  )?.index!
+
   await ProposalCanceledEvent.insert(id, {
     dao: dao.id,
-    proposalId: Number(proposalId),
+    proposalId: proposalIndex,
     createdAt: event.block.timestamp,
   })
 })
@@ -20,9 +26,15 @@ ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
   const { proposalId, proposal, targets, values, calldatas, description } =
     event.params
 
+  const proposalIndex = proposals.length + 1
+  proposals.push({
+    hexId: proposalId.toString(),
+    index: proposalIndex,
+  })
+
   await ProposalCreatedEvent.insert(id, {
     dao: dao.id,
-    proposalId: Number(proposalId),
+    proposalId: proposalIndex,
     proposer: proposal.proposer,
     targets: targets.map((target) => target.toString()),
     values: values.map((value) => value.toString()),
@@ -39,9 +51,13 @@ ponder.on('BuilderDAO:ProposalExecuted', async ({ event, context }) => {
   const { ProposalExecutedEvent } = context.entities
   const { proposalId } = event.params
 
+  const proposalIndex = proposals.find(
+    (proposal) => proposal.hexId === proposalId.toString()
+  )?.index!
+
   await ProposalExecutedEvent.insert(id, {
     dao: dao.id,
-    proposalId: Number(proposalId),
+    proposalId: proposalIndex,
     createdAt: event.block.timestamp,
   })
 })
@@ -51,9 +67,13 @@ ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
   const { ProposalQueuedEvent } = context.entities
   const { proposalId, eta } = event.params
 
+  const proposalIndex = proposals.find(
+    (proposal) => proposal.hexId === proposalId.toString()
+  )?.index!
+
   await ProposalQueuedEvent.insert(id, {
     dao: dao.id,
-    proposalId: Number(proposalId),
+    proposalId: proposalIndex,
     eta: Number(eta),
     createdAt: event.block.timestamp,
   })
@@ -64,9 +84,13 @@ ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
   const { ProposalVetoedEvent } = context.entities
   const { proposalId } = event.params
 
+  const proposalIndex = proposals.find(
+    (proposal) => proposal.hexId === proposalId.toString()
+  )?.index!
+
   await ProposalVetoedEvent.insert(id, {
     dao: dao.id,
-    proposalId: Number(proposalId),
+    proposalId: proposalIndex,
     createdAt: event.block.timestamp,
   })
 })
@@ -76,10 +100,14 @@ ponder.on('BuilderDAO:VoteCast', async ({ event, context }) => {
   const { VoteCastEvent } = context.entities
   const { voter, proposalId, support, weight: votes, reason } = event.params
 
+  const proposalIndex = proposals.find(
+    (proposal) => proposal.hexId === proposalId.toString()
+  )?.index!
+
   await VoteCastEvent.insert(id, {
     dao: dao.id,
     voter,
-    proposalId: Number(proposalId),
+    proposalId: proposalIndex,
     support: Number(support),
     votes: Number(votes),
     reason: reason.toString(),
