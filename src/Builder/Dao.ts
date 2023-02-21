@@ -11,11 +11,11 @@ ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
 
   const proposalIndex = proposals.find(
     (proposal) => proposal.hexId === proposalId.toString()
-  )?.index!
+  )?.index
 
   await ProposalCanceledEvent.insert(id, {
     dao: dao.id,
-    proposalId: proposalIndex,
+    proposalId: proposalIndex || 0,
     createdAt: event.block.timestamp,
   })
 })
@@ -53,11 +53,11 @@ ponder.on('BuilderDAO:ProposalExecuted', async ({ event, context }) => {
 
   const proposalIndex = proposals.find(
     (proposal) => proposal.hexId === proposalId.toString()
-  )?.index!
+  )?.index
 
   await ProposalExecutedEvent.insert(id, {
     dao: dao.id,
-    proposalId: proposalIndex,
+    proposalId: proposalIndex || 0,
     createdAt: event.block.timestamp,
   })
 })
@@ -69,11 +69,11 @@ ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
 
   const proposalIndex = proposals.find(
     (proposal) => proposal.hexId === proposalId.toString()
-  )?.index!
+  )?.index
 
   await ProposalQueuedEvent.insert(id, {
     dao: dao.id,
-    proposalId: proposalIndex,
+    proposalId: proposalIndex || 0,
     eta: Number(eta),
     createdAt: event.block.timestamp,
   })
@@ -86,11 +86,11 @@ ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
 
   const proposalIndex = proposals.find(
     (proposal) => proposal.hexId === proposalId.toString()
-  )?.index!
+  )?.index
 
   await ProposalVetoedEvent.insert(id, {
     dao: dao.id,
-    proposalId: proposalIndex,
+    proposalId: proposalIndex || 0,
     createdAt: event.block.timestamp,
   })
 })
@@ -102,12 +102,12 @@ ponder.on('BuilderDAO:VoteCast', async ({ event, context }) => {
 
   const proposalIndex = proposals.find(
     (proposal) => proposal.hexId === proposalId.toString()
-  )?.index!
+  )?.index
 
   await VoteCastEvent.insert(id, {
     dao: dao.id,
     voter,
-    proposalId: proposalIndex,
+    proposalId: proposalIndex || 0,
     support: Number(support),
     votes: Number(votes),
     reason: reason.toString(),
