@@ -4,6 +4,63 @@ type Dao @entity {
   symbol: String!
 }
 
+############################################
+####            IN PROGRESS             ####
+############################################
+
+type Auction @entity {
+  id: ID!
+  tokenId: Int!
+  dao: Dao!
+  startTime: Int!
+  endTime: Int!
+  createdAt: Int!
+  bids: [AuctionBidEvent!]!
+  extended: Boolean
+  winner: String
+  amount: String
+}
+
+type Proposal @entity {
+  id: ID!
+  dao: Dao!
+  proposalId: Int!
+  proposer: String!
+  targets: [String!]!
+  values: [String!]!
+  signatures: [String]
+  calldatas: [String!]!
+  voteStart: Int!
+  voteEnd: Int!
+  description: String!
+  createdAt: Int!
+  canceled: Boolean
+  executed: Boolean
+  queued: Boolean
+  vetoed: Boolean
+  votes: [VoteCastEvent!]
+}
+
+type Delegate @entity {
+  id: ID!
+  delegate: String!
+  dao: Dao!
+  votes: Int!
+  delegators: [String!]
+}
+
+type Token @entity {
+  id: ID!
+  tokenId: Int!
+  dao: Dao!
+  seed: String!
+  owner: String!
+  createdAt: Int!
+}
+
+############################################
+############################################
+
 type AuctionBidEvent @entity {
   id: ID!
   tokenId: Int!
