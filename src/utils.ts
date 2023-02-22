@@ -31,3 +31,11 @@ export function estimateProposalTimestamps(
 
   return { voteStart, voteEnd }
 }
+
+export function createStaticId(
+  medium: 'proposal' | 'token',
+  daoId: string,
+  identifier: number
+) {
+  return `${daoId}-${medium}-${identifier}`
+}

@@ -1,12 +1,13 @@
 import { dao } from '.'
 import { ponder } from '../../generated'
 import type { BuilderDaosProposal } from '../types'
+import { createStaticId } from '../utils'
 
 let proposals: BuilderDaosProposal[] = new Array()
 
 ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalCanceledEvent } = context.entities
+  const { ProposalCanceledEvent, Proposal } = context.entities
   const { proposalId } = event.params
 
   const proposalIndex = proposals.find(
@@ -18,11 +19,18 @@ ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
     proposalId: proposalIndex || 0,
     createdAt: event.block.timestamp,
   })
+
+  await Proposal.update(
+    createStaticId('proposal', dao.id, proposalIndex || 0),
+    {
+      status: 'CANCELED',
+    }
+  )
 })
 
 ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalCreatedEvent } = context.entities
+  const { ProposalCreatedEvent, Proposal } = context.entities
   const { proposalId, proposal, targets, values, calldatas, description } =
     event.params
 
@@ -32,8 +40,25 @@ ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
     index: proposalIndex,
   })
 
+  const staticId = createStaticId('proposal', dao.id, proposalIndex)
+
+  await Proposal.insert(staticId, {
+    dao: dao.id,
+    proposalId: proposalIndex,
+    proposer: proposal.proposer,
+    targets: targets.map((target) => target.toString()),
+    values: values.map((value) => value.toString()),
+    calldatas: calldatas.map((calldata) => calldata.toString()),
+    voteStart: Number(proposal.voteStart),
+    voteEnd: Number(proposal.voteEnd),
+    description: description.toString(),
+    createdAt: event.block.timestamp,
+    status: 'CREATED',
+  })
+
   await ProposalCreatedEvent.insert(id, {
     dao: dao.id,
+    proposal: staticId,
     proposalId: proposalIndex,
     proposer: proposal.proposer,
     targets: targets.map((target) => target.toString()),
@@ -48,7 +73,7 @@ ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
 
 ponder.on('BuilderDAO:ProposalExecuted', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalExecutedEvent } = context.entities
+  const { ProposalExecutedEvent, Proposal } = context.entities
   const { proposalId } = event.params
 
   const proposalIndex = proposals.find(
@@ -60,11 +85,18 @@ ponder.on('BuilderDAO:ProposalExecuted', async ({ event, context }) => {
     proposalId: proposalIndex || 0,
     createdAt: event.block.timestamp,
   })
+
+  await Proposal.update(
+    createStaticId('proposal', dao.id, proposalIndex || 0),
+    {
+      status: 'EXECUTED',
+    }
+  )
 })
 
 ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalQueuedEvent } = context.entities
+  const { ProposalQueuedEvent, Proposal } = context.entities
   const { proposalId, eta } = event.params
 
   const proposalIndex = proposals.find(
@@ -77,11 +109,18 @@ ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
     eta: Number(eta),
     createdAt: event.block.timestamp,
   })
+
+  await Proposal.update(
+    createStaticId('proposal', dao.id, proposalIndex || 0),
+    {
+      status: 'QUEUED',
+    }
+  )
 })
 
 ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalVetoedEvent } = context.entities
+  const { ProposalVetoedEvent, Proposal } = context.entities
   const { proposalId } = event.params
 
   const proposalIndex = proposals.find(
@@ -93,6 +132,13 @@ ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
     proposalId: proposalIndex || 0,
     createdAt: event.block.timestamp,
   })
+
+  await Proposal.update(
+    createStaticId('proposal', dao.id, proposalIndex || 0),
+    {
+      status: 'VETOED',
+    }
+  )
 })
 
 ponder.on('BuilderDAO:VoteCast', async ({ event, context }) => {

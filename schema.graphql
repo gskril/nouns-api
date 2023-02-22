@@ -21,6 +21,16 @@ type Auction @entity {
   amount: String
 }
 
+enum ProposalStatus {
+  CREATED
+  CANCELED
+  EXECUTED
+  QUEUED
+  VETOED
+  ACTIVE
+  DEFEATED
+}
+
 type Proposal @entity {
   id: ID!
   dao: Dao!
@@ -38,7 +48,8 @@ type Proposal @entity {
   executed: Boolean
   queued: Boolean
   vetoed: Boolean
-  votes: [VoteCastEvent!]
+  votes: [VoteCastEvent!]! @derivedFrom(field: "proposal")
+  status: ProposalStatus!
 }
 
 type Delegate @entity {
@@ -210,6 +221,7 @@ type ProposalCanceledEvent @entity {
 type ProposalCreatedEvent @entity {
   id: ID!
   dao: Dao!
+  proposal: Proposal!
   proposalId: Int!
   proposer: String!
   targets: [String!]!
