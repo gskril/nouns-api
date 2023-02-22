@@ -23,7 +23,7 @@ ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
   await Proposal.update(
     createStaticId('proposal', dao.id, proposalIndex || 0),
     {
-      status: 'CANCELED',
+      canceled: true,
     }
   )
 })
@@ -53,7 +53,6 @@ ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
     voteEnd: Number(proposal.voteEnd),
     description: description.toString(),
     createdAt: event.block.timestamp,
-    status: 'CREATED',
   })
 
   await ProposalCreatedEvent.insert(id, {
@@ -89,7 +88,7 @@ ponder.on('BuilderDAO:ProposalExecuted', async ({ event, context }) => {
   await Proposal.update(
     createStaticId('proposal', dao.id, proposalIndex || 0),
     {
-      status: 'EXECUTED',
+      executed: true,
     }
   )
 })
@@ -113,7 +112,7 @@ ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
   await Proposal.update(
     createStaticId('proposal', dao.id, proposalIndex || 0),
     {
-      status: 'QUEUED',
+      queued: true,
     }
   )
 })
@@ -136,7 +135,7 @@ ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
   await Proposal.update(
     createStaticId('proposal', dao.id, proposalIndex || 0),
     {
-      status: 'VETOED',
+      vetoed: true,
     }
   )
 })
@@ -153,6 +152,7 @@ ponder.on('BuilderDAO:VoteCast', async ({ event, context }) => {
   await VoteCastEvent.insert(id, {
     dao: dao.id,
     voter,
+    proposal: createStaticId('proposal', dao.id, proposalIndex || 0),
     proposalId: proposalIndex || 0,
     support: Number(support),
     votes: Number(votes),
