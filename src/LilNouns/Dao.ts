@@ -1,10 +1,11 @@
+import { createStaticId } from '../utils'
 import { dao } from '.'
 import { estimateProposalTimestamps } from '../utils'
 import { ponder } from '../../generated'
 
 ponder.on('LilNounsDAO:ProposalCanceled', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalCanceledEvent } = context.entities
+  const { ProposalCanceledEvent, Proposal } = context.entities
   const { id: proposalId } = event.params
 
   await ProposalCanceledEvent.insert(id, {
@@ -12,11 +13,18 @@ ponder.on('LilNounsDAO:ProposalCanceled', async ({ event, context }) => {
     proposalId: Number(proposalId),
     createdAt: event.block.timestamp,
   })
+
+  await Proposal.update(
+    createStaticId('proposal', dao.id, Number(proposalId)),
+    {
+      canceled: true,
+    }
+  )
 })
 
 ponder.on('LilNounsDAO:ProposalCreated', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalCreatedEvent } = context.entities
+  const { ProposalCreatedEvent, Proposal } = context.entities
   const {
     id: proposalId,
     proposer,
@@ -35,8 +43,25 @@ ponder.on('LilNounsDAO:ProposalCreated', async ({ event, context }) => {
     endBlock
   )
 
+  const staticId = createStaticId('proposal', dao.id, Number(proposalId))
+
+  await Proposal.insert(staticId, {
+    dao: dao.id,
+    proposalId: Number(proposalId),
+    proposer,
+    targets: targets.map((target) => target.toString()),
+    values: values.map((value) => value.toString()),
+    signatures: signatures.map((signature) => signature.toString()),
+    calldatas: calldatas.map((calldata) => calldata.toString()),
+    voteStart,
+    voteEnd,
+    description: description.toString(),
+    createdAt: event.block.timestamp,
+  })
+
   await ProposalCreatedEvent.insert(id, {
     dao: dao.id,
+    proposal: staticId,
     proposalId: Number(proposalId),
     proposer,
     targets: targets.map((target) => target.toString()),
@@ -57,7 +82,7 @@ ponder.on(
 
 ponder.on('LilNounsDAO:ProposalExecuted', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalExecutedEvent } = context.entities
+  const { ProposalExecutedEvent, Proposal } = context.entities
   const { id: proposalId } = event.params
 
   await ProposalExecutedEvent.insert(id, {
@@ -65,11 +90,18 @@ ponder.on('LilNounsDAO:ProposalExecuted', async ({ event, context }) => {
     proposalId: Number(proposalId),
     createdAt: event.block.timestamp,
   })
+
+  await Proposal.update(
+    createStaticId('proposal', dao.id, Number(proposalId)),
+    {
+      executed: true,
+    }
+  )
 })
 
 ponder.on('LilNounsDAO:ProposalQueued', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalQueuedEvent } = context.entities
+  const { ProposalQueuedEvent, Proposal } = context.entities
   const { id: proposalId, eta } = event.params
 
   await ProposalQueuedEvent.insert(id, {
@@ -78,11 +110,18 @@ ponder.on('LilNounsDAO:ProposalQueued', async ({ event, context }) => {
     eta: Number(eta),
     createdAt: event.block.timestamp,
   })
+
+  await Proposal.update(
+    createStaticId('proposal', dao.id, Number(proposalId)),
+    {
+      queued: true,
+    }
+  )
 })
 
 ponder.on('LilNounsDAO:ProposalVetoed', async ({ event, context }) => {
   const id = event.log.logId
-  const { ProposalVetoedEvent } = context.entities
+  const { ProposalVetoedEvent, Proposal } = context.entities
   const { id: proposalId } = event.params
 
   await ProposalVetoedEvent.insert(id, {
@@ -90,6 +129,13 @@ ponder.on('LilNounsDAO:ProposalVetoed', async ({ event, context }) => {
     proposalId: Number(proposalId),
     createdAt: event.block.timestamp,
   })
+
+  await Proposal.update(
+    createStaticId('proposal', dao.id, Number(proposalId)),
+    {
+      vetoed: true,
+    }
+  )
 })
 
 ponder.on('LilNounsDAO:RefundableVote', async ({ event, context }) => {
@@ -114,6 +160,7 @@ ponder.on('LilNounsDAO:VoteCast', async ({ event, context }) => {
   await VoteCastEvent.insert(id, {
     dao: dao.id,
     voter,
+    proposal: createStaticId('proposal', dao.id, Number(proposalId)),
     proposalId: Number(proposalId),
     support: Number(support),
     votes: Number(votes),

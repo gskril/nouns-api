@@ -1,7 +1,7 @@
+import { createStaticId } from '../utils'
 import { dao } from '.'
 import { ponder } from '../../generated'
 import type { BuilderDaosProposal } from '../types'
-import { createStaticId } from '../utils'
 
 let proposals: BuilderDaosProposal[] = new Array()
 
