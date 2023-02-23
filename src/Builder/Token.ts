@@ -1,12 +1,12 @@
 import { dao } from '.'
 import { ponder } from '../../generated'
 
-ponder.on('BuilderToken:Approval', ({ event, context }) => {
+ponder.on('BuilderToken:Approval', async ({ event, context }) => {
   const id = event.log.logId
   const { ApprovalEvent } = context.entities
   const { owner, approved, tokenId } = event.params
 
-  ApprovalEvent.insert(id, {
+  await ApprovalEvent.insert(id, {
     dao: dao.id,
     owner,
     approved,
@@ -15,12 +15,12 @@ ponder.on('BuilderToken:Approval', ({ event, context }) => {
   })
 })
 
-ponder.on('BuilderToken:ApprovalForAll', ({ event, context }) => {
+ponder.on('BuilderToken:ApprovalForAll', async ({ event, context }) => {
   const id = event.log.logId
   const { ApprovalForAllEvent } = context.entities
   const { owner, operator, approved } = event.params
 
-  ApprovalForAllEvent.insert(id, {
+  await ApprovalForAllEvent.insert(id, {
     dao: dao.id,
     owner,
     operator,
@@ -29,12 +29,12 @@ ponder.on('BuilderToken:ApprovalForAll', ({ event, context }) => {
   })
 })
 
-ponder.on('BuilderToken:DelegateChanged', ({ event, context }) => {
+ponder.on('BuilderToken:DelegateChanged', async ({ event, context }) => {
   const id = event.log.logId
   const { DelegateChangedEvent } = context.entities
   const { delegator, from: fromDelegate, to: toDelegate } = event.params
 
-  DelegateChangedEvent.insert(id, {
+  await DelegateChangedEvent.insert(id, {
     dao: dao.id,
     delegator,
     fromDelegate,
@@ -43,12 +43,12 @@ ponder.on('BuilderToken:DelegateChanged', ({ event, context }) => {
   })
 })
 
-ponder.on('BuilderToken:DelegateVotesChanged', ({ event, context }) => {
+ponder.on('BuilderToken:DelegateVotesChanged', async ({ event, context }) => {
   const id = event.log.logId
   const { DelegateVotesChangedEvent } = context.entities
   const { delegate, prevTotalVotes, newTotalVotes } = event.params
 
-  DelegateVotesChangedEvent.insert(id, {
+  await DelegateVotesChangedEvent.insert(id, {
     dao: dao.id,
     delegate,
     previousBalance: Number(prevTotalVotes),
@@ -57,12 +57,12 @@ ponder.on('BuilderToken:DelegateVotesChanged', ({ event, context }) => {
   })
 })
 
-ponder.on('BuilderToken:Transfer', ({ event, context }) => {
+ponder.on('BuilderToken:Transfer', async ({ event, context }) => {
   const id = event.log.logId
   const { TransferEvent } = context.entities
   const { from, to, tokenId } = event.params
 
-  TransferEvent.insert(id, {
+  await TransferEvent.insert(id, {
     dao: dao.id,
     from,
     to,
