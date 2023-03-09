@@ -1,3 +1,4 @@
+import { createStaticId } from '../utils'
 import { dao } from './'
 import { ponder } from '../../generated'
 
@@ -8,13 +9,16 @@ ponder.on('NounsAuctionHouse:AuctionBid', async ({ event, context }) => {
 
   await Dao.upsert(dao.id, dao.body)
 
+  const auctionId = createStaticId('token', dao.id, Number(nounId))
+
   await AuctionBidEvent.insert(id, {
+    auction: auctionId,
     dao: dao.id,
     tokenId: Number(nounId),
     sender,
     value: value.toString(),
     extended,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -28,7 +32,7 @@ ponder.on('NounsAuctionHouse:AuctionCreated', async ({ event, context }) => {
     tokenId: Number(nounId),
     startTime: Number(startTime),
     endTime: Number(endTime),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -41,7 +45,7 @@ ponder.on('NounsAuctionHouse:AuctionExtended', async ({ event, context }) => {
     dao: dao.id,
     tokenId: Number(nounId),
     endTime: Number(endTime),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -55,7 +59,7 @@ ponder.on(
     await AuctionMinBidIncrementPercentageUpdatedEvent.insert(id, {
       dao: dao.id,
       minBidIncrementPercentage: Number(minBidIncrementPercentage),
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -70,7 +74,7 @@ ponder.on(
     await AuctionReservePriceUpdatedEvent.insert(id, {
       dao: dao.id,
       reservePrice: reservePrice.toString(),
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -85,7 +89,7 @@ ponder.on('NounsAuctionHouse:AuctionSettled', async ({ event, context }) => {
     tokenId: Number(nounId),
     winner,
     amount: amount.toString(),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -99,7 +103,7 @@ ponder.on(
     await AuctionTimeBufferUpdatedEvent.insert(id, {
       dao: dao.id,
       timeBuffer: Number(timeBuffer),
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -115,7 +119,7 @@ ponder.on(
       dao: dao.id,
       previousOwner,
       newOwner,
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -128,7 +132,7 @@ ponder.on('NounsAuctionHouse:Paused', async ({ event, context }) => {
   await PausedEvent.insert(id, {
     dao: dao.id,
     account,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -140,6 +144,6 @@ ponder.on('NounsAuctionHouse:Unpaused', async ({ event, context }) => {
   await UnpausedEvent.insert(id, {
     dao: dao.id,
     account,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })

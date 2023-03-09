@@ -11,7 +11,7 @@ ponder.on('LilNounsDAO:ProposalCanceled', async ({ event, context }) => {
   await ProposalCanceledEvent.insert(id, {
     dao: dao.id,
     proposalId: Number(proposalId),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 
   await Proposal.update(
@@ -56,7 +56,7 @@ ponder.on('LilNounsDAO:ProposalCreated', async ({ event, context }) => {
     voteStart,
     voteEnd,
     description: description.toString(),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 
   await ProposalCreatedEvent.insert(id, {
@@ -71,7 +71,7 @@ ponder.on('LilNounsDAO:ProposalCreated', async ({ event, context }) => {
     voteStart,
     voteEnd,
     description: description.toString(),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -88,7 +88,7 @@ ponder.on('LilNounsDAO:ProposalExecuted', async ({ event, context }) => {
   await ProposalExecutedEvent.insert(id, {
     dao: dao.id,
     proposalId: Number(proposalId),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 
   await Proposal.update(
@@ -108,7 +108,7 @@ ponder.on('LilNounsDAO:ProposalQueued', async ({ event, context }) => {
     dao: dao.id,
     proposalId: Number(proposalId),
     eta: Number(eta),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 
   await Proposal.update(
@@ -127,7 +127,7 @@ ponder.on('LilNounsDAO:ProposalVetoed', async ({ event, context }) => {
   await ProposalVetoedEvent.insert(id, {
     dao: dao.id,
     proposalId: Number(proposalId),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 
   await Proposal.update(
@@ -148,7 +148,7 @@ ponder.on('LilNounsDAO:RefundableVote', async ({ event, context }) => {
     voter,
     refundAmount: refundAmount.toString(),
     refundSent: refundSent,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -165,6 +165,6 @@ ponder.on('LilNounsDAO:VoteCast', async ({ event, context }) => {
     support: Number(support),
     votes: Number(votes),
     reason: reason.toString(),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })

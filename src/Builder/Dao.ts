@@ -17,7 +17,7 @@ ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
   await ProposalCanceledEvent.insert(id, {
     dao: dao.id,
     proposalId: proposalIndex || 0,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 
   await Proposal.update(
@@ -52,7 +52,7 @@ ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
     voteStart: Number(proposal.voteStart),
     voteEnd: Number(proposal.voteEnd),
     description: description.toString(),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 
   await ProposalCreatedEvent.insert(id, {
@@ -66,7 +66,7 @@ ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
     voteStart: Number(proposal.voteStart),
     voteEnd: Number(proposal.voteEnd),
     description: description.toString(),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -82,7 +82,7 @@ ponder.on('BuilderDAO:ProposalExecuted', async ({ event, context }) => {
   await ProposalExecutedEvent.insert(id, {
     dao: dao.id,
     proposalId: proposalIndex || 0,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 
   await Proposal.update(
@@ -106,7 +106,7 @@ ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
     dao: dao.id,
     proposalId: proposalIndex || 0,
     eta: Number(eta),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 
   await Proposal.update(
@@ -129,7 +129,7 @@ ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
   await ProposalVetoedEvent.insert(id, {
     dao: dao.id,
     proposalId: proposalIndex || 0,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 
   await Proposal.update(
@@ -157,6 +157,6 @@ ponder.on('BuilderDAO:VoteCast', async ({ event, context }) => {
     support: Number(support),
     votes: Number(votes),
     reason: reason.toString(),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })

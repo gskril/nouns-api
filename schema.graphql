@@ -15,7 +15,7 @@ type Auction @entity {
   startTime: Int!
   endTime: Int!
   createdAt: Int!
-  bids: [AuctionBidEvent!]!
+  bids: [AuctionBidEvent!]! @derivedFrom(field: "auction")
   extended: Boolean
   winner: String
   amount: String
@@ -63,6 +63,7 @@ type Token @entity {
 
 type AuctionBidEvent @entity {
   id: ID!
+  auction: Auction!
   tokenId: Int!
   dao: Dao!
   sender: String!

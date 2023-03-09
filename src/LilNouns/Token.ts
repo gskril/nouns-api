@@ -11,7 +11,7 @@ ponder.on('LilNounsToken:Approval', async ({ event, context }) => {
     owner,
     approved,
     tokenId: Number(tokenId),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -25,7 +25,7 @@ ponder.on('LilNounsToken:ApprovalForAll', async ({ event, context }) => {
     owner,
     operator,
     approved,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -39,7 +39,7 @@ ponder.on('LilNounsToken:DelegateChanged', async ({ event, context }) => {
     delegator,
     fromDelegate,
     toDelegate,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -53,7 +53,7 @@ ponder.on('LilNounsToken:DelegateVotesChanged', async ({ event, context }) => {
     delegate,
     previousBalance: Number(previousBalance),
     newBalance: Number(newBalance),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -65,7 +65,7 @@ ponder.on('LilNounsToken:NounBurned', async ({ event, context }) => {
   await NftBurnedEvent.insert(id, {
     dao: dao.id,
     tokenId: Number(tokenId),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -85,7 +85,7 @@ ponder.on('LilNounsToken:NounCreated', async ({ event, context }) => {
       head: Number(seed.head),
       glasses: Number(seed.glasses),
     }),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -99,6 +99,6 @@ ponder.on('LilNounsToken:Transfer', async ({ event, context }) => {
     from,
     to,
     tokenId: Number(tokenId),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })

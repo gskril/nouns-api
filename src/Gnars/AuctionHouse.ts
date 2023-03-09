@@ -1,3 +1,4 @@
+import { createStaticId } from '../utils'
 import { dao } from '.'
 import { ponder } from '../../generated'
 
@@ -8,12 +9,15 @@ ponder.on('GnarsAuctionHouse:AuctionBid', async ({ event, context }) => {
 
   await Dao.upsert(dao.id, dao.body)
 
+  const auctionId = createStaticId('token', dao.id, Number(gnarId))
+
   await AuctionBidEvent.insert(id, {
+    auction: auctionId,
     dao: dao.id,
     tokenId: Number(gnarId),
     sender,
     value: value.toString(),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -27,7 +31,7 @@ ponder.on('GnarsAuctionHouse:AuctionCreated', async ({ event, context }) => {
     tokenId: Number(gnarId),
     startTime: Number(startTimestamp),
     endTime: Number(endTimestamp),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -41,7 +45,7 @@ ponder.on(
     await AuctionMinBidIncrementPercentageUpdatedEvent.insert(id, {
       dao: dao.id,
       minBidIncrementPercentage: Number(minBidIncrementPercentage),
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -56,7 +60,7 @@ ponder.on(
     await AuctionReservePriceUpdatedEvent.insert(id, {
       dao: dao.id,
       reservePrice: reservePrice.toString(),
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -71,7 +75,7 @@ ponder.on('GnarsAuctionHouse:AuctionSettled', async ({ event, context }) => {
     tokenId: Number(gnarId),
     winner,
     amount: amount.toString(),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -86,7 +90,7 @@ ponder.on(
       dao: dao.id,
       previousOwner,
       newOwner,
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -99,7 +103,7 @@ ponder.on('GnarsAuctionHouse:Paused', async ({ event, context }) => {
   await PausedEvent.insert(id, {
     dao: dao.id,
     account,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -111,6 +115,6 @@ ponder.on('GnarsAuctionHouse:Unpaused', async ({ event, context }) => {
   await UnpausedEvent.insert(id, {
     dao: dao.id,
     account,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })

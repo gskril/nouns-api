@@ -1,4 +1,3 @@
-import { BigNumber } from 'ethers'
 import { GenericContractEvent } from './types'
 
 export function estimateTimestampFromBlock(
@@ -14,12 +13,12 @@ export function estimateTimestampFromBlock(
 
 export function estimateProposalTimestamps(
   event: GenericContractEvent,
-  startBlock: BigNumber,
-  endBlock: BigNumber
+  startBlock: BigInt,
+  endBlock: BigInt
 ): { voteStart: number; voteEnd: number } {
   const voteStart = estimateTimestampFromBlock(
-    event.block.timestamp,
-    event.block.number,
+    Number(event.block.timestamp),
+    Number(event.block.number),
     Number(startBlock)
   )
 

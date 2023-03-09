@@ -11,7 +11,7 @@ ponder.on('BuilderToken:Approval', async ({ event, context }) => {
     owner,
     approved,
     tokenId: Number(tokenId),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -25,7 +25,7 @@ ponder.on('BuilderToken:ApprovalForAll', async ({ event, context }) => {
     owner,
     operator,
     approved,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -39,7 +39,7 @@ ponder.on('BuilderToken:DelegateChanged', async ({ event, context }) => {
     delegator,
     fromDelegate,
     toDelegate,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -53,7 +53,7 @@ ponder.on('BuilderToken:DelegateVotesChanged', async ({ event, context }) => {
     delegate,
     previousBalance: Number(prevTotalVotes),
     newBalance: Number(newTotalVotes),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -67,6 +67,6 @@ ponder.on('BuilderToken:Transfer', async ({ event, context }) => {
     from,
     to,
     tokenId: Number(tokenId),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
