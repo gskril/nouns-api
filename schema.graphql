@@ -41,13 +41,14 @@ type Proposal @entity {
   votes: [VoteCastEvent!]! @derivedFrom(field: "proposal")
 }
 
-type Delegate @entity {
-  id: String!
-  delegate: String!
-  dao: Dao!
-  votes: Int!
-  delegators: [String!]
-}
+# TODO: bring this back
+# type Delegate @entity {
+#   id: String!
+#   delegate: String!
+#   dao: Dao!
+#   votes: Int!
+#   delegators: [String!]
+# }
 
 type Token @entity {
   id: String!

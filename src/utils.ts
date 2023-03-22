@@ -32,7 +32,7 @@ export function estimateProposalTimestamps(
 }
 
 export function createStaticId(
-  medium: 'proposal' | 'token',
+  medium: 'proposal' | 'token' | 'auction',
   daoId: string,
   identifier: number
 ) {

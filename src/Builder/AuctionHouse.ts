@@ -4,12 +4,10 @@ import { ponder } from '../../generated'
 
 ponder.on('BuilderAuctionHouse:AuctionBid', async ({ event, context }) => {
   const id = event.log.logId
-  const { AuctionBidEvent, Dao } = context.entities
+  const { AuctionBidEvent, Auction } = context.entities
   const { tokenId, bidder, amount, extended } = event.params
 
-  await Dao.upsert(dao.id, dao.body)
-
-  const auctionId = createStaticId('token', dao.id, Number(tokenId))
+  const auctionId = createStaticId('auction', dao.id, Number(tokenId))
 
   await AuctionBidEvent.insert(id, {
     auction: auctionId,
@@ -20,14 +18,30 @@ ponder.on('BuilderAuctionHouse:AuctionBid', async ({ event, context }) => {
     extended,
     createdAt: Number(event.block.timestamp),
   })
+
+  if (extended) {
+    await Auction.update(auctionId, {
+      extended,
+    })
+  }
 })
 
 ponder.on('BuilderAuctionHouse:AuctionCreated', async ({ event, context }) => {
   const id = event.log.logId
-  const { AuctionCreatedEvent } = context.entities
+  const { AuctionCreatedEvent, Auction, Dao } = context.entities
   const { tokenId, startTime, endTime } = event.params
 
+  await Dao.upsert(dao.id, dao.body)
+
   await AuctionCreatedEvent.insert(id, {
+    dao: dao.id,
+    tokenId: Number(tokenId),
+    startTime: Number(startTime),
+    endTime: Number(endTime),
+    createdAt: Number(event.block.timestamp),
+  })
+
+  await Auction.insert(createStaticId('auction', dao.id, Number(tokenId)), {
     dao: dao.id,
     tokenId: Number(tokenId),
     startTime: Number(startTime),
@@ -68,7 +82,7 @@ ponder.on(
 
 ponder.on('BuilderAuctionHouse:AuctionSettled', async ({ event, context }) => {
   const id = event.log.logId
-  const { AuctionSettledEvent } = context.entities
+  const { AuctionSettledEvent, Auction } = context.entities
   const { tokenId, winner, amount } = event.params
 
   await AuctionSettledEvent.insert(id, {
@@ -77,6 +91,11 @@ ponder.on('BuilderAuctionHouse:AuctionSettled', async ({ event, context }) => {
     winner,
     amount: amount.toString(),
     createdAt: Number(event.block.timestamp),
+  })
+
+  await Auction.update(createStaticId('auction', dao.id, Number(tokenId)), {
+    winner,
+    amount: amount.toString(),
   })
 })
 
