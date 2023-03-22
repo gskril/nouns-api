@@ -21,7 +21,9 @@ ponder.on('NounsAuctionHouse:AuctionBid', async ({ event, context }) => {
 
   if (extended) {
     await Auction.update(auctionId, {
-      extended,
+      extended: true,
+    }).catch(() => {
+      console.log(`Unable to update Auction entity with id ${auctionId}`)
     })
   }
 })
