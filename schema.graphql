@@ -4,10 +4,6 @@ type Dao @entity {
   symbol: String!
 }
 
-############################################
-####            IN PROGRESS             ####
-############################################
-
 type Auction @entity {
   id: String!
   tokenId: Int!
@@ -56,9 +52,6 @@ type Token @entity {
   dao: Dao!
   owner: String!
 }
-
-############################################
-############################################
 
 type AuctionBidEvent @entity {
   id: String!
