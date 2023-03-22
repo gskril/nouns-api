@@ -95,9 +95,13 @@ ponder.on('BuilderAuctionHouse:AuctionSettled', async ({ event, context }) => {
     createdAt: Number(event.block.timestamp),
   })
 
-  await Auction.update(createStaticId('auction', dao.id, Number(tokenId)), {
+  const auctionId = createStaticId('auction', dao.id, Number(tokenId))
+
+  await Auction.update(auctionId, {
     winner,
     amount: amount.toString(),
+  }).catch(() => {
+    console.error(`Unable to update Auction entity with id ${auctionId}`)
   })
 })
 
