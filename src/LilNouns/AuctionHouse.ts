@@ -1,34 +1,52 @@
+import { createStaticId } from '../utils'
 import { dao } from '.'
 import { ponder } from '../../generated'
 
 ponder.on('LilNounsAuctionHouse:AuctionBid', async ({ event, context }) => {
   const id = event.log.logId
-  const { AuctionBidEvent, Dao } = context.entities
+  const { AuctionBidEvent, Auction } = context.entities
   const { nounId, sender, value, extended } = event.params
 
-  await Dao.upsert(dao.id, dao.body)
+  const auctionId = createStaticId('auction', dao.id, Number(nounId))
 
   await AuctionBidEvent.insert(id, {
+    auction: auctionId,
     dao: dao.id,
     tokenId: Number(nounId),
     sender,
     value: value.toString(),
     extended,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
+
+  if (extended) {
+    await Auction.update(auctionId, {
+      extended,
+    })
+  }
 })
 
 ponder.on('LilNounsAuctionHouse:AuctionCreated', async ({ event, context }) => {
   const id = event.log.logId
-  const { AuctionCreatedEvent } = context.entities
+  const { AuctionCreatedEvent, Auction, Dao } = context.entities
   const { nounId, startTime, endTime } = event.params
+
+  await Dao.upsert(dao.id, dao.body)
 
   await AuctionCreatedEvent.insert(id, {
     dao: dao.id,
     tokenId: Number(nounId),
     startTime: Number(startTime),
     endTime: Number(endTime),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
+  })
+
+  await Auction.insert(createStaticId('auction', dao.id, Number(nounId)), {
+    dao: dao.id,
+    tokenId: Number(nounId),
+    startTime: Number(startTime),
+    endTime: Number(endTime),
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -43,7 +61,7 @@ ponder.on(
       dao: dao.id,
       tokenId: Number(nounId),
       endTime: Number(endTime),
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -58,7 +76,7 @@ ponder.on(
     await AuctionMinBidIncrementPercentageUpdatedEvent.insert(id, {
       dao: dao.id,
       minBidIncrementPercentage: Number(minBidIncrementPercentage),
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -73,14 +91,14 @@ ponder.on(
     await AuctionReservePriceUpdatedEvent.insert(id, {
       dao: dao.id,
       reservePrice: reservePrice.toString(),
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
 
 ponder.on('LilNounsAuctionHouse:AuctionSettled', async ({ event, context }) => {
   const id = event.log.logId
-  const { AuctionSettledEvent } = context.entities
+  const { AuctionSettledEvent, Auction } = context.entities
   const { nounId, winner, amount } = event.params
 
   await AuctionSettledEvent.insert(id, {
@@ -88,7 +106,12 @@ ponder.on('LilNounsAuctionHouse:AuctionSettled', async ({ event, context }) => {
     tokenId: Number(nounId),
     winner,
     amount: amount.toString(),
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
+  })
+
+  await Auction.update(createStaticId('auction', dao.id, Number(nounId)), {
+    winner,
+    amount: amount.toString(),
   })
 })
 
@@ -102,7 +125,7 @@ ponder.on(
     await AuctionTimeBufferUpdatedEvent.insert(id, {
       dao: dao.id,
       timeBuffer: Number(timeBuffer),
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -118,7 +141,7 @@ ponder.on(
       dao: dao.id,
       previousOwner,
       newOwner,
-      createdAt: event.block.timestamp,
+      createdAt: Number(event.block.timestamp),
     })
   }
 )
@@ -131,7 +154,7 @@ ponder.on('LilNounsAuctionHouse:Paused', async ({ event, context }) => {
   await PausedEvent.insert(id, {
     dao: dao.id,
     account,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })
 
@@ -143,6 +166,6 @@ ponder.on('LilNounsAuctionHouse:Unpaused', async ({ event, context }) => {
   await UnpausedEvent.insert(id, {
     dao: dao.id,
     account,
-    createdAt: event.block.timestamp,
+    createdAt: Number(event.block.timestamp),
   })
 })

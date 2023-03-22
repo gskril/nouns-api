@@ -1,8 +1,6 @@
 import type { PonderConfig } from '@ponder/core'
-import { graphqlPlugin } from '@ponder/graphql'
 
 export const config: PonderConfig = {
-  plugins: [graphqlPlugin()],
   networks: [
     { name: 'mainnet', chainId: 1, rpcUrl: process.env.PONDER_RPC_URL_1 },
   ],
@@ -82,7 +80,7 @@ export const config: PonderConfig = {
       network: 'mainnet',
       abi: './abis/Builder/dao.json',
       address: '0xe3f8d5488c69d18abda42fca10c177d7c19e8b1a',
-      startBlock: 15983805,
+      startBlock: 15876071,
     },
   ],
 }
