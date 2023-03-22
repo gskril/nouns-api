@@ -1,5 +1,5 @@
 type Dao @entity {
-  id: ID!
+  id: String!
   name: String!
   symbol: String!
 }
@@ -9,7 +9,7 @@ type Dao @entity {
 ############################################
 
 type Auction @entity {
-  id: ID!
+  id: String!
   tokenId: Int!
   dao: Dao!
   startTime: Int!
@@ -22,7 +22,7 @@ type Auction @entity {
 }
 
 type Proposal @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   proposalId: Int!
   proposer: String!
@@ -42,7 +42,7 @@ type Proposal @entity {
 }
 
 type Delegate @entity {
-  id: ID!
+  id: String!
   delegate: String!
   dao: Dao!
   votes: Int!
@@ -50,7 +50,7 @@ type Delegate @entity {
 }
 
 type Token @entity {
-  id: ID!
+  id: String!
   tokenId: Int!
   dao: Dao!
   seed: String!
@@ -62,7 +62,7 @@ type Token @entity {
 ############################################
 
 type AuctionBidEvent @entity {
-  id: ID!
+  id: String!
   auction: Auction!
   tokenId: Int!
   dao: Dao!
@@ -73,7 +73,7 @@ type AuctionBidEvent @entity {
 }
 
 type AuctionCreatedEvent @entity {
-  id: ID!
+  id: String!
   tokenId: Int!
   dao: Dao!
   startTime: Int!
@@ -82,7 +82,7 @@ type AuctionCreatedEvent @entity {
 }
 
 type AuctionExtendedEvent @entity {
-  id: ID!
+  id: String!
   tokenId: Int!
   dao: Dao!
   endTime: Int!
@@ -90,21 +90,21 @@ type AuctionExtendedEvent @entity {
 }
 
 type AuctionMinBidIncrementPercentageUpdatedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   minBidIncrementPercentage: Int!
   createdAt: Int!
 }
 
 type AuctionReservePriceUpdatedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   reservePrice: String!
   createdAt: Int!
 }
 
 type AuctionSettledEvent @entity {
-  id: ID!
+  id: String!
   tokenId: Int!
   dao: Dao!
   winner: String!
@@ -113,14 +113,14 @@ type AuctionSettledEvent @entity {
 }
 
 type AuctionTimeBufferUpdatedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   timeBuffer: Int!
   createdAt: Int!
 }
 
 type OwnershipTransferEventredEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   previousOwner: String!
   newOwner: String!
@@ -128,21 +128,21 @@ type OwnershipTransferEventredEvent @entity {
 }
 
 type PausedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   account: String!
   createdAt: Int!
 }
 
 type UnpausedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   account: String!
   createdAt: Int!
 }
 
 type ApprovalEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   owner: String!
   approved: String!
@@ -151,7 +151,7 @@ type ApprovalEvent @entity {
 }
 
 type ApprovalForAllEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   owner: String!
   operator: String!
@@ -160,7 +160,7 @@ type ApprovalForAllEvent @entity {
 }
 
 type DelegateChangedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   delegator: String!
   fromDelegate: String!
@@ -169,7 +169,7 @@ type DelegateChangedEvent @entity {
 }
 
 type DelegateVotesChangedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   delegate: String!
   previousBalance: Int!
@@ -178,14 +178,14 @@ type DelegateVotesChangedEvent @entity {
 }
 
 type NftBurnedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   tokenId: Int!
   createdAt: Int!
 }
 
 type NftCreatedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   seed: String!
   tokenId: Int!
@@ -193,7 +193,7 @@ type NftCreatedEvent @entity {
 }
 
 type TransferEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   from: String!
   to: String!
@@ -202,14 +202,14 @@ type TransferEvent @entity {
 }
 
 type ProposalCanceledEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   proposalId: Int!
   createdAt: Int!
 }
 
 type ProposalCreatedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   proposal: Proposal!
   proposalId: Int!
@@ -225,14 +225,14 @@ type ProposalCreatedEvent @entity {
 }
 
 type ProposalExecutedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   proposalId: Int!
   createdAt: Int!
 }
 
 type ProposalQueuedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   proposalId: Int!
   eta: Int!
@@ -240,14 +240,14 @@ type ProposalQueuedEvent @entity {
 }
 
 type ProposalVetoedEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   proposalId: Int!
   createdAt: Int!
 }
 
 type RefundableVoteEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   voter: String!
   refundAmount: String!
@@ -256,7 +256,7 @@ type RefundableVoteEvent @entity {
 }
 
 type VoteCastEvent @entity {
-  id: ID!
+  id: String!
   dao: Dao!
   voter: String!
   proposal: Proposal!
