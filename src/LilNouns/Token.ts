@@ -1,3 +1,4 @@
+import { createStaticId } from '../utils'
 import { dao } from '.'
 import { ponder } from '../../generated'
 
@@ -91,7 +92,7 @@ ponder.on('LilNounsToken:NounCreated', async ({ event, context }) => {
 
 ponder.on('LilNounsToken:Transfer', async ({ event, context }) => {
   const id = event.log.logId
-  const { TransferEvent } = context.entities
+  const { TransferEvent, Token } = context.entities
   const { from, to, tokenId } = event.params
 
   await TransferEvent.insert(id, {
@@ -100,5 +101,11 @@ ponder.on('LilNounsToken:Transfer', async ({ event, context }) => {
     to,
     tokenId: Number(tokenId),
     createdAt: Number(event.block.timestamp),
+  })
+
+  await Token.upsert(createStaticId('token', dao.id, Number(tokenId)), {
+    tokenId: Number(tokenId),
+    dao: dao.id,
+    owner: to,
   })
 })

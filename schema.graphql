@@ -53,9 +53,7 @@ type Token @entity {
   id: String!
   tokenId: Int!
   dao: Dao!
-  seed: String!
   owner: String!
-  createdAt: Int!
 }
 
 ############################################
