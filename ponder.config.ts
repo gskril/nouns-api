@@ -80,7 +80,7 @@ export const config: PonderConfig = {
       network: 'mainnet',
       abi: './abis/Builder/dao.json',
       address: '0xe3f8d5488c69d18abda42fca10c177d7c19e8b1a',
-      startBlock: 15983805,
+      startBlock: 15876071,
     },
   ],
 }
