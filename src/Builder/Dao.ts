@@ -12,20 +12,17 @@ ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
 
   const proposalIndex = proposals.find(
     (proposal) => proposal.hexId === proposalId.toString()
-  )?.index
+  )?.index!
 
   await ProposalCanceledEvent.insert(id, {
     dao: dao.id,
-    proposalId: proposalIndex || 0,
+    proposalId: proposalIndex,
     createdAt: Number(event.block.timestamp),
   })
 
-  await Proposal.update(
-    createStaticId('proposal', dao.id, proposalIndex || 0),
-    {
-      canceled: true,
-    }
-  )
+  await Proposal.update(createStaticId('proposal', dao.id, proposalIndex), {
+    canceled: true,
+  })
 })
 
 ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
@@ -77,20 +74,17 @@ ponder.on('BuilderDAO:ProposalExecuted', async ({ event, context }) => {
 
   const proposalIndex = proposals.find(
     (proposal) => proposal.hexId === proposalId.toString()
-  )?.index
+  )?.index!
 
   await ProposalExecutedEvent.insert(id, {
     dao: dao.id,
-    proposalId: proposalIndex || 0,
+    proposalId: proposalIndex,
     createdAt: Number(event.block.timestamp),
   })
 
-  await Proposal.update(
-    createStaticId('proposal', dao.id, proposalIndex || 0),
-    {
-      executed: true,
-    }
-  )
+  await Proposal.update(createStaticId('proposal', dao.id, proposalIndex), {
+    executed: true,
+  })
 })
 
 ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
@@ -100,21 +94,18 @@ ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
 
   const proposalIndex = proposals.find(
     (proposal) => proposal.hexId === proposalId.toString()
-  )?.index
+  )?.index!
 
   await ProposalQueuedEvent.insert(id, {
     dao: dao.id,
-    proposalId: proposalIndex || 0,
+    proposalId: proposalIndex,
     eta: Number(eta),
     createdAt: Number(event.block.timestamp),
   })
 
-  await Proposal.update(
-    createStaticId('proposal', dao.id, proposalIndex || 0),
-    {
-      queued: true,
-    }
-  )
+  await Proposal.update(createStaticId('proposal', dao.id, proposalIndex), {
+    queued: true,
+  })
 })
 
 ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
@@ -124,20 +115,17 @@ ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
 
   const proposalIndex = proposals.find(
     (proposal) => proposal.hexId === proposalId.toString()
-  )?.index
+  )?.index!
 
   await ProposalVetoedEvent.insert(id, {
     dao: dao.id,
-    proposalId: proposalIndex || 0,
+    proposalId: proposalIndex,
     createdAt: Number(event.block.timestamp),
   })
 
-  await Proposal.update(
-    createStaticId('proposal', dao.id, proposalIndex || 0),
-    {
-      vetoed: true,
-    }
-  )
+  await Proposal.update(createStaticId('proposal', dao.id, proposalIndex), {
+    vetoed: true,
+  })
 })
 
 ponder.on('BuilderDAO:VoteCast', async ({ event, context }) => {
@@ -147,13 +135,13 @@ ponder.on('BuilderDAO:VoteCast', async ({ event, context }) => {
 
   const proposalIndex = proposals.find(
     (proposal) => proposal.hexId === proposalId.toString()
-  )?.index
+  )?.index!
 
   await VoteCastEvent.insert(id, {
     dao: dao.id,
     voter,
-    proposal: createStaticId('proposal', dao.id, proposalIndex || 0),
-    proposalId: proposalIndex || 0,
+    proposal: createStaticId('proposal', dao.id, proposalIndex),
+    proposalId: proposalIndex,
     support: Number(support),
     votes: Number(votes),
     reason: reason.toString(),
