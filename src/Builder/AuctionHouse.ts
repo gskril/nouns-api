@@ -22,6 +22,8 @@ ponder.on('BuilderAuctionHouse:AuctionBid', async ({ event, context }) => {
   if (extended) {
     await Auction.update(auctionId, {
       extended,
+    }).catch((err) => {
+      console.log(`Unable to update Auction entity with id ${auctionId}`, err)
     })
   }
 })
