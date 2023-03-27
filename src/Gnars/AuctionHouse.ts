@@ -88,12 +88,14 @@ ponder.on('GnarsAuctionHouse:AuctionSettled', async ({ event, context }) => {
 
   const auctionId = createStaticId('auction', dao.id, Number(gnarId))
 
-  await Auction.update(auctionId, {
-    winner,
-    amount: amount.toString(),
-  }).catch(() => {
+  try {
+    await Auction.update(auctionId, {
+      winner,
+      amount: amount.toString(),
+    })
+  } catch {
     console.error(`Unable to update Auction entity with id ${auctionId}`)
-  })
+  }
 })
 
 ponder.on(

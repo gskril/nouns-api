@@ -20,11 +20,13 @@ ponder.on('BuilderAuctionHouse:AuctionBid', async ({ event, context }) => {
   })
 
   if (extended) {
-    await Auction.update(auctionId, {
-      extended: true,
-    }).catch(() => {
-      console.log(`Unable to update Auction entity with id ${auctionId}`)
-    })
+    try {
+      await Auction.update(auctionId, {
+        extended: true,
+      })
+    } catch {
+      console.error(`Unable to update Auction entity with id ${auctionId}`)
+    }
   }
 })
 
@@ -97,12 +99,14 @@ ponder.on('BuilderAuctionHouse:AuctionSettled', async ({ event, context }) => {
 
   const auctionId = createStaticId('auction', dao.id, Number(tokenId))
 
-  await Auction.update(auctionId, {
-    winner,
-    amount: amount.toString(),
-  }).catch(() => {
+  try {
+    await Auction.update(auctionId, {
+      winner,
+      amount: amount.toString(),
+    })
+  } catch {
     console.error(`Unable to update Auction entity with id ${auctionId}`)
-  })
+  }
 })
 
 ponder.on(
