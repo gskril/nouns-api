@@ -82,5 +82,26 @@ export const config: PonderConfig = {
       address: '0xe3f8d5488c69d18abda42fca10c177d7c19e8b1a',
       startBlock: 15876071,
     },
+    {
+      name: 'PurpleAuctionHouse',
+      network: 'mainnet',
+      abi: './abis/Builder/auctionHouse.json',
+      address: '0x43790fe6bd46b210eb27F01306C1D3546AEB8C1b',
+      startBlock: 15826300,
+    },
+    {
+      name: 'PurpleToken',
+      network: 'mainnet',
+      abi: './abis/Builder/token.json',
+      address: '0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60',
+      startBlock: 15826300,
+    },
+    {
+      name: 'PurpleDAO',
+      network: 'mainnet',
+      abi: './abis/Builder/dao.json',
+      address: '0xFB4A96541E1C70FC85Ee512420eB0B05C542df57',
+      startBlock: 15826300,
+    },
   ],
 }
