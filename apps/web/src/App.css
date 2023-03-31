@@ -1,0 +1,130 @@
+@font-face {
+  font-family: 'Urbanist';
+  src: url('/fonts/Urbanist-VariableFont_wght.ttf') format('truetype');
+  font-weight: 500, 700, 800;
+}
+
+:root {
+  --dark-text: #151c3b;
+  --light-text: #79809c;
+  --accent: #e9ebf3;
+}
+
+body {
+  font-family: 'Urbanist', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  background-image: url('/noggles.svg');
+  background-size: 2.8rem;
+  background-repeat: repeat;
+}
+
+.container {
+  display: flex;
+  gap: 3rem;
+  position: relative;
+  min-height: 100svh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5rem;
+  z-index: 0;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.5)
+  );
+}
+
+.hero {
+  width: 100%;
+  display: flex;
+  max-width: 47.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.625rem;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 4rem;
+  line-height: 1.0625;
+  text-align: center;
+}
+
+.hero__buttons {
+  display: flex;
+  align-items: center;
+  gap: 1.125rem;
+}
+
+.btn {
+  color: var(--accent);
+  width: fit-content;
+  font-size: 1.375rem;
+  font-weight: 700;
+  border-radius: 10rem;
+  padding: 0.5rem 1.75rem;
+  background-color: var(--dark-text);
+  border: 0.125rem solid var(--dark-text);
+  box-shadow: 0.0625rem 0.0625rem 0.5rem rgba(0, 0, 0, 0.15);
+  transition: opacity 0.15s ease-in-out;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  opacity: 0.75;
+}
+
+.btn--secondary {
+  color: var(--dark-text);
+  background-color: var(--accent);
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.125rem;
+  color: var(--light-text);
+  z-index: 1;
+}
+
+.footer a {
+  color: var(--dark-text);
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .title {
+    font-size: 2.75rem;
+  }
+
+  .hero__buttons {
+    gap: 0.75rem;
+  }
+
+  .btn {
+    font-size: 1.125rem;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .hero__buttons {
+    flex-direction: column;
+  }
+}
