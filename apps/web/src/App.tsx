@@ -9,13 +9,10 @@ function App() {
         <div className="hero">
           <h1 className="title">GraphQL API to power your Nounish ideas</h1>
           <div className="hero__buttons">
-            <a className="btn" href="https://nouns-data.up.railway.app/graphql">
+            <a className="btn" href="https://api.nounishdata.com/graphql">
               Try it now
             </a>
-            <a
-              className="btn btn--secondary"
-              href="https://nouns.gregskril.com/"
-            >
+            <a className="btn btn--secondary" href="https://nounslist.com/">
               See it in action
             </a>
           </div>
