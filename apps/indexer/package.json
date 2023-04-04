@@ -6,7 +6,7 @@
     "codegen": "ponder codegen"
   },
   "dependencies": {
-    "@ponder/core": "^0.0.47"
+    "@ponder/core": "^0.0.51"
   },
   "devDependencies": {
     "@types/node": "^18.14.6",

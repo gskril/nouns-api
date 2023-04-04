@@ -14,14 +14,20 @@ ponder.on('BuilderDAO:ProposalCanceled', async ({ event, context }) => {
     (proposal) => proposal.hexId === proposalId.toString()
   )?.index!
 
-  await ProposalCanceledEvent.insert(id, {
-    dao: dao.id,
-    proposalId: proposalIndex,
-    createdAt: Number(event.block.timestamp),
+  await ProposalCanceledEvent.create({
+    id,
+    data: {
+      dao: dao.id,
+      proposalId: proposalIndex,
+      createdAt: Number(event.block.timestamp),
+    },
   })
 
-  await Proposal.update(createStaticId('proposal', dao.id, proposalIndex), {
-    canceled: true,
+  await Proposal.update({
+    id: createStaticId('proposal', dao.id, proposalIndex),
+    data: {
+      canceled: true,
+    },
   })
 })
 
@@ -39,31 +45,37 @@ ponder.on('BuilderDAO:ProposalCreated', async ({ event, context }) => {
 
   const staticId = createStaticId('proposal', dao.id, proposalIndex)
 
-  await Proposal.insert(staticId, {
-    dao: dao.id,
-    proposalId: proposalIndex,
-    proposer: proposal.proposer,
-    targets: targets.map((target) => target.toString()),
-    values: values.map((value) => value.toString()),
-    calldatas: calldatas.map((calldata) => calldata.toString()),
-    voteStart: Number(proposal.voteStart),
-    voteEnd: Number(proposal.voteEnd),
-    description: description.toString(),
-    createdAt: Number(event.block.timestamp),
+  await Proposal.create({
+    id: staticId,
+    data: {
+      dao: dao.id,
+      proposalId: proposalIndex,
+      proposer: proposal.proposer,
+      targets: targets.map((target) => target.toString()),
+      values: values.map((value) => value.toString()),
+      calldatas: calldatas.map((calldata) => calldata.toString()),
+      voteStart: Number(proposal.voteStart),
+      voteEnd: Number(proposal.voteEnd),
+      description: description.toString(),
+      createdAt: Number(event.block.timestamp),
+    },
   })
 
-  await ProposalCreatedEvent.insert(id, {
-    dao: dao.id,
-    proposal: staticId,
-    proposalId: proposalIndex,
-    proposer: proposal.proposer,
-    targets: targets.map((target) => target.toString()),
-    values: values.map((value) => value.toString()),
-    calldatas: calldatas.map((calldata) => calldata.toString()),
-    voteStart: Number(proposal.voteStart),
-    voteEnd: Number(proposal.voteEnd),
-    description: description.toString(),
-    createdAt: Number(event.block.timestamp),
+  await ProposalCreatedEvent.create({
+    id,
+    data: {
+      dao: dao.id,
+      proposal: staticId,
+      proposalId: proposalIndex,
+      proposer: proposal.proposer,
+      targets: targets.map((target) => target.toString()),
+      values: values.map((value) => value.toString()),
+      calldatas: calldatas.map((calldata) => calldata.toString()),
+      voteStart: Number(proposal.voteStart),
+      voteEnd: Number(proposal.voteEnd),
+      description: description.toString(),
+      createdAt: Number(event.block.timestamp),
+    },
   })
 })
 
@@ -76,14 +88,20 @@ ponder.on('BuilderDAO:ProposalExecuted', async ({ event, context }) => {
     (proposal) => proposal.hexId === proposalId.toString()
   )?.index!
 
-  await ProposalExecutedEvent.insert(id, {
-    dao: dao.id,
-    proposalId: proposalIndex,
-    createdAt: Number(event.block.timestamp),
+  await ProposalExecutedEvent.create({
+    id,
+    data: {
+      dao: dao.id,
+      proposalId: proposalIndex,
+      createdAt: Number(event.block.timestamp),
+    },
   })
 
-  await Proposal.update(createStaticId('proposal', dao.id, proposalIndex), {
-    executed: true,
+  await Proposal.update({
+    id: createStaticId('proposal', dao.id, proposalIndex),
+    data: {
+      executed: true,
+    },
   })
 })
 
@@ -96,15 +114,21 @@ ponder.on('BuilderDAO:ProposalQueued', async ({ event, context }) => {
     (proposal) => proposal.hexId === proposalId.toString()
   )?.index!
 
-  await ProposalQueuedEvent.insert(id, {
-    dao: dao.id,
-    proposalId: proposalIndex,
-    eta: Number(eta),
-    createdAt: Number(event.block.timestamp),
+  await ProposalQueuedEvent.create({
+    id,
+    data: {
+      dao: dao.id,
+      proposalId: proposalIndex,
+      eta: Number(eta),
+      createdAt: Number(event.block.timestamp),
+    },
   })
 
-  await Proposal.update(createStaticId('proposal', dao.id, proposalIndex), {
-    queued: true,
+  await Proposal.update({
+    id: createStaticId('proposal', dao.id, proposalIndex),
+    data: {
+      queued: true,
+    },
   })
 })
 
@@ -117,14 +141,20 @@ ponder.on('BuilderDAO:ProposalVetoed', async ({ event, context }) => {
     (proposal) => proposal.hexId === proposalId.toString()
   )?.index!
 
-  await ProposalVetoedEvent.insert(id, {
-    dao: dao.id,
-    proposalId: proposalIndex,
-    createdAt: Number(event.block.timestamp),
+  await ProposalVetoedEvent.create({
+    id,
+    data: {
+      dao: dao.id,
+      proposalId: proposalIndex,
+      createdAt: Number(event.block.timestamp),
+    },
   })
 
-  await Proposal.update(createStaticId('proposal', dao.id, proposalIndex), {
-    vetoed: true,
+  await Proposal.update({
+    id: createStaticId('proposal', dao.id, proposalIndex),
+    data: {
+      vetoed: true,
+    },
   })
 })
 
@@ -137,14 +167,17 @@ ponder.on('BuilderDAO:VoteCast', async ({ event, context }) => {
     (proposal) => proposal.hexId === proposalId.toString()
   )?.index!
 
-  await VoteCastEvent.insert(id, {
-    dao: dao.id,
-    voter,
-    proposal: createStaticId('proposal', dao.id, proposalIndex),
-    proposalId: proposalIndex,
-    support: Number(support),
-    votes: Number(votes),
-    reason: reason.toString(),
-    createdAt: Number(event.block.timestamp),
+  await VoteCastEvent.create({
+    id,
+    data: {
+      dao: dao.id,
+      voter,
+      proposal: createStaticId('proposal', dao.id, proposalIndex),
+      proposalId: proposalIndex,
+      support: Number(support),
+      votes: Number(votes),
+      reason: reason.toString(),
+      createdAt: Number(event.block.timestamp),
+    },
   })
 })
