@@ -1,9 +1,6 @@
 import type { PonderConfig } from '@ponder/core'
 
 export const config: PonderConfig = {
-  options: {
-    maxHealthcheckDuration: 20 * 60, // 20 minutes
-  },
   networks: [
     { name: 'mainnet', chainId: 1, rpcUrl: process.env.PONDER_RPC_URL_1 },
   ],
