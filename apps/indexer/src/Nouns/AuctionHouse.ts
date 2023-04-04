@@ -9,18 +9,22 @@ ponder.on('NounsAuctionHouse:AuctionBid', async ({ event, context }) => {
 
   const auctionId = createStaticId('auction', dao.id, Number(nounId))
 
-  await AuctionBidEvent.create({
-    id,
-    data: {
-      auction: auctionId,
-      dao: dao.id,
-      tokenId: Number(nounId),
-      sender,
-      value: value.toString(),
-      extended,
-      createdAt: Number(event.block.timestamp),
-    },
-  })
+  try {
+    await AuctionBidEvent.create({
+      id,
+      data: {
+        auction: auctionId,
+        dao: dao.id,
+        tokenId: Number(nounId),
+        sender,
+        value: value.toString(),
+        extended,
+        createdAt: Number(event.block.timestamp),
+      },
+    })
+  } catch {
+    console.error(`Unable to create AuctionBidEvent entity with id ${id}`)
+  }
 
   if (extended) {
     try {

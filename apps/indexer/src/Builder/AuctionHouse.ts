@@ -54,15 +54,16 @@ ponder.on('BuilderAuctionHouse:AuctionCreated', async ({ event, context }) => {
     },
   })
 
-  await Auction.create({
+  await Auction.upsert({
     id: createStaticId('auction', dao.id, Number(tokenId)),
-    data: {
+    create: {
       dao: dao.id,
       tokenId: Number(tokenId),
       startTime: Number(startTime),
       endTime: Number(endTime),
       createdAt: Number(event.block.timestamp),
     },
+    update: {},
   })
 })
 
