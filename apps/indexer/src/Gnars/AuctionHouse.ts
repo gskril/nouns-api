@@ -40,15 +40,16 @@ ponder.on('GnarsAuctionHouse:AuctionCreated', async ({ event, context }) => {
     },
   })
 
-  await Auction.create({
+  await Auction.upsert({
     id: createStaticId('auction', dao.id, Number(gnarId)),
-    data: {
+    create: {
       dao: dao.id,
       tokenId: Number(gnarId),
       startTime: Number(startTimestamp),
       endTime: Number(endTimestamp),
       createdAt: Number(event.block.timestamp),
     },
+    update: {},
   })
 })
 
