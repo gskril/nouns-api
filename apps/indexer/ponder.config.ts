@@ -1,8 +1,13 @@
-import type { PonderConfig } from '@ponder/core'
+import type { Config } from '@ponder/core'
 
-export const config: PonderConfig = {
+export const config: Config = {
   networks: [
-    { name: 'mainnet', chainId: 1, rpcUrl: process.env.PONDER_RPC_URL_1 },
+    {
+      name: 'mainnet',
+      chainId: 1,
+      maxRpcRequestConcurrency: 5,
+      rpcUrl: process.env.PONDER_RPC_URL_1,
+    },
   ],
   contracts: [
     {
