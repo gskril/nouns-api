@@ -3,7 +3,7 @@ import { dao } from '.'
 import { ponder } from '../../generated'
 
 ponder.on('PurpleAuctionHouse:AuctionBid', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { AuctionBidEvent, Auction } = context.entities
   const { tokenId, bidder, amount, extended } = event.params
 
@@ -37,7 +37,7 @@ ponder.on('PurpleAuctionHouse:AuctionBid', async ({ event, context }) => {
 })
 
 ponder.on('PurpleAuctionHouse:AuctionCreated', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { AuctionCreatedEvent, Auction, Dao } = context.entities
   const { tokenId, startTime, endTime } = event.params
 
@@ -70,7 +70,7 @@ ponder.on('PurpleAuctionHouse:AuctionCreated', async ({ event, context }) => {
 ponder.on(
   'PurpleAuctionHouse:MinBidIncrementPercentageUpdated',
   async ({ event, context }) => {
-    const id = event.log.logId
+    const id = event.log.id
     const { AuctionMinBidIncrementPercentageUpdatedEvent } = context.entities
     const { minBidIncrementPercentage } = event.params
 
@@ -88,7 +88,7 @@ ponder.on(
 ponder.on(
   'PurpleAuctionHouse:ReservePriceUpdated',
   async ({ event, context }) => {
-    const id = event.log.logId
+    const id = event.log.id
     const { AuctionReservePriceUpdatedEvent } = context.entities
     const { reservePrice } = event.params
 
@@ -104,7 +104,7 @@ ponder.on(
 )
 
 ponder.on('PurpleAuctionHouse:AuctionSettled', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { AuctionSettledEvent, Auction } = context.entities
   const { tokenId, winner, amount } = event.params
 
@@ -137,7 +137,7 @@ ponder.on('PurpleAuctionHouse:AuctionSettled', async ({ event, context }) => {
 ponder.on(
   'PurpleAuctionHouse:TimeBufferUpdated',
   async ({ event, context }) => {
-    const id = event.log.logId
+    const id = event.log.id
     const { AuctionTimeBufferUpdatedEvent } = context.entities
     const { timeBuffer } = event.params
 
@@ -153,7 +153,7 @@ ponder.on(
 )
 
 ponder.on('PurpleAuctionHouse:OwnerUpdated', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { OwnershipTransferEventredEvent } = context.entities
   const { prevOwner: previousOwner, newOwner } = event.params
 
@@ -169,7 +169,7 @@ ponder.on('PurpleAuctionHouse:OwnerUpdated', async ({ event, context }) => {
 })
 
 ponder.on('PurpleAuctionHouse:Paused', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { PausedEvent } = context.entities
   const { user: account } = event.params
 
@@ -184,7 +184,7 @@ ponder.on('PurpleAuctionHouse:Paused', async ({ event, context }) => {
 })
 
 ponder.on('PurpleAuctionHouse:Unpaused', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { UnpausedEvent } = context.entities
   const { user: account } = event.params
 

@@ -3,7 +3,7 @@ import { dao } from '.'
 import { ponder } from '../../generated'
 
 ponder.on('PurpleToken:Approval', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ApprovalEvent } = context.entities
   const { owner, approved, tokenId } = event.params
 
@@ -20,7 +20,7 @@ ponder.on('PurpleToken:Approval', async ({ event, context }) => {
 })
 
 ponder.on('PurpleToken:ApprovalForAll', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ApprovalForAllEvent } = context.entities
   const { owner, operator, approved } = event.params
 
@@ -37,7 +37,7 @@ ponder.on('PurpleToken:ApprovalForAll', async ({ event, context }) => {
 })
 
 ponder.on('PurpleToken:DelegateChanged', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { DelegateChangedEvent } = context.entities
   const { delegator, from: fromDelegate, to: toDelegate } = event.params
 
@@ -54,7 +54,7 @@ ponder.on('PurpleToken:DelegateChanged', async ({ event, context }) => {
 })
 
 ponder.on('PurpleToken:DelegateVotesChanged', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { DelegateVotesChangedEvent } = context.entities
   const { delegate, prevTotalVotes, newTotalVotes } = event.params
 
@@ -71,7 +71,7 @@ ponder.on('PurpleToken:DelegateVotesChanged', async ({ event, context }) => {
 })
 
 ponder.on('PurpleToken:Transfer', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { TransferEvent, Token } = context.entities
   const { from, to, tokenId } = event.params
 

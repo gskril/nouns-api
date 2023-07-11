@@ -3,7 +3,7 @@ import { dao } from '.'
 import { ponder } from '../../generated'
 
 ponder.on('GnarsToken:Approval', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ApprovalEvent } = context.entities
   const { owner, approved, tokenId } = event.params
 
@@ -20,7 +20,7 @@ ponder.on('GnarsToken:Approval', async ({ event, context }) => {
 })
 
 ponder.on('GnarsToken:ApprovalForAll', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ApprovalForAllEvent } = context.entities
   const { owner, operator, approved } = event.params
 
@@ -37,7 +37,7 @@ ponder.on('GnarsToken:ApprovalForAll', async ({ event, context }) => {
 })
 
 ponder.on('GnarsToken:DelegateChanged', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { DelegateChangedEvent } = context.entities
   const { delegator, fromDelegate, toDelegate } = event.params
 
@@ -54,7 +54,7 @@ ponder.on('GnarsToken:DelegateChanged', async ({ event, context }) => {
 })
 
 ponder.on('GnarsToken:DelegateVotesChanged', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { DelegateVotesChangedEvent } = context.entities
   const { delegate, previousBalance, newBalance } = event.params
 
@@ -71,7 +71,7 @@ ponder.on('GnarsToken:DelegateVotesChanged', async ({ event, context }) => {
 })
 
 ponder.on('GnarsToken:GnarBurned', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { NftBurnedEvent } = context.entities
   const { tokenId } = event.params
 
@@ -87,7 +87,7 @@ ponder.on('GnarsToken:GnarBurned', async ({ event, context }) => {
 
 // TODO: Add seed type to NounCreated schema
 ponder.on('GnarsToken:GnarCreated', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { NftCreatedEvent } = context.entities
   const { tokenId, seed } = event.params
 
@@ -109,7 +109,7 @@ ponder.on('GnarsToken:GnarCreated', async ({ event, context }) => {
 })
 
 ponder.on('GnarsToken:Transfer', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { TransferEvent, Token } = context.entities
   const { from, to, tokenId } = event.params
 

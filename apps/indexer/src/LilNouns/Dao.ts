@@ -4,7 +4,7 @@ import { estimateProposalTimestamps } from '../utils'
 import { ponder } from '../../generated'
 
 ponder.on('LilNounsDAO:ProposalCanceled', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ProposalCanceledEvent, Proposal } = context.entities
   const { id: proposalId } = event.params
 
@@ -26,7 +26,7 @@ ponder.on('LilNounsDAO:ProposalCanceled', async ({ event, context }) => {
 })
 
 ponder.on('LilNounsDAO:ProposalCreated', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ProposalCreatedEvent, Proposal } = context.entities
   const {
     id: proposalId,
@@ -90,7 +90,7 @@ ponder.on(
 )
 
 ponder.on('LilNounsDAO:ProposalExecuted', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ProposalExecutedEvent, Proposal } = context.entities
   const { id: proposalId } = event.params
 
@@ -112,7 +112,7 @@ ponder.on('LilNounsDAO:ProposalExecuted', async ({ event, context }) => {
 })
 
 ponder.on('LilNounsDAO:ProposalQueued', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ProposalQueuedEvent, Proposal } = context.entities
   const { id: proposalId, eta } = event.params
 
@@ -135,7 +135,7 @@ ponder.on('LilNounsDAO:ProposalQueued', async ({ event, context }) => {
 })
 
 ponder.on('LilNounsDAO:ProposalVetoed', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ProposalVetoedEvent, Proposal } = context.entities
   const { id: proposalId } = event.params
 
@@ -157,7 +157,7 @@ ponder.on('LilNounsDAO:ProposalVetoed', async ({ event, context }) => {
 })
 
 ponder.on('LilNounsDAO:RefundableVote', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { RefundableVoteEvent } = context.entities
   const { voter, refundAmount, refundSent } = event.params
 
@@ -174,7 +174,7 @@ ponder.on('LilNounsDAO:RefundableVote', async ({ event, context }) => {
 })
 
 ponder.on('LilNounsDAO:VoteCast', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { VoteCastEvent } = context.entities
   const { voter, proposalId, support, votes, reason } = event.params
 

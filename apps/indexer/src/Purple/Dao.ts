@@ -6,7 +6,7 @@ import type { BuilderDaosProposal } from '../types'
 let proposals: BuilderDaosProposal[] = new Array()
 
 ponder.on('PurpleDAO:ProposalCanceled', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ProposalCanceledEvent, Proposal } = context.entities
   const { proposalId } = event.params
 
@@ -32,7 +32,7 @@ ponder.on('PurpleDAO:ProposalCanceled', async ({ event, context }) => {
 })
 
 ponder.on('PurpleDAO:ProposalCreated', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ProposalCreatedEvent, Proposal } = context.entities
   const { proposalId, proposal, targets, values, calldatas, description } =
     event.params
@@ -80,7 +80,7 @@ ponder.on('PurpleDAO:ProposalCreated', async ({ event, context }) => {
 })
 
 ponder.on('PurpleDAO:ProposalExecuted', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ProposalExecutedEvent, Proposal } = context.entities
   const { proposalId } = event.params
 
@@ -106,7 +106,7 @@ ponder.on('PurpleDAO:ProposalExecuted', async ({ event, context }) => {
 })
 
 ponder.on('PurpleDAO:ProposalQueued', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ProposalQueuedEvent, Proposal } = context.entities
   const { proposalId, eta } = event.params
 
@@ -133,7 +133,7 @@ ponder.on('PurpleDAO:ProposalQueued', async ({ event, context }) => {
 })
 
 ponder.on('PurpleDAO:ProposalVetoed', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { ProposalVetoedEvent, Proposal } = context.entities
   const { proposalId } = event.params
 
@@ -159,7 +159,7 @@ ponder.on('PurpleDAO:ProposalVetoed', async ({ event, context }) => {
 })
 
 ponder.on('PurpleDAO:VoteCast', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { VoteCastEvent } = context.entities
   const { voter, proposalId, support, weight: votes, reason } = event.params
 

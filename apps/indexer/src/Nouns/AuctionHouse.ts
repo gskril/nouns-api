@@ -3,7 +3,7 @@ import { dao } from './'
 import { ponder } from '../../generated'
 
 ponder.on('NounsAuctionHouse:AuctionBid', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { AuctionBidEvent, Auction } = context.entities
   const { nounId, sender, value, extended } = event.params
 
@@ -41,7 +41,7 @@ ponder.on('NounsAuctionHouse:AuctionBid', async ({ event, context }) => {
 })
 
 ponder.on('NounsAuctionHouse:AuctionCreated', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { AuctionCreatedEvent, Auction, Dao } = context.entities
   const { nounId, startTime, endTime } = event.params
 
@@ -72,7 +72,7 @@ ponder.on('NounsAuctionHouse:AuctionCreated', async ({ event, context }) => {
 })
 
 ponder.on('NounsAuctionHouse:AuctionExtended', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { AuctionExtendedEvent } = context.entities
   const { nounId, endTime } = event.params
 
@@ -90,7 +90,7 @@ ponder.on('NounsAuctionHouse:AuctionExtended', async ({ event, context }) => {
 ponder.on(
   'NounsAuctionHouse:AuctionMinBidIncrementPercentageUpdated',
   async ({ event, context }) => {
-    const id = event.log.logId
+    const id = event.log.id
     const { AuctionMinBidIncrementPercentageUpdatedEvent } = context.entities
     const { minBidIncrementPercentage } = event.params
 
@@ -108,7 +108,7 @@ ponder.on(
 ponder.on(
   'NounsAuctionHouse:AuctionReservePriceUpdated',
   async ({ event, context }) => {
-    const id = event.log.logId
+    const id = event.log.id
     const { AuctionReservePriceUpdatedEvent } = context.entities
     const { reservePrice } = event.params
 
@@ -124,7 +124,7 @@ ponder.on(
 )
 
 ponder.on('NounsAuctionHouse:AuctionSettled', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { AuctionSettledEvent, Auction } = context.entities
   const { nounId, winner, amount } = event.params
 
@@ -157,7 +157,7 @@ ponder.on('NounsAuctionHouse:AuctionSettled', async ({ event, context }) => {
 ponder.on(
   'NounsAuctionHouse:AuctionTimeBufferUpdated',
   async ({ event, context }) => {
-    const id = event.log.logId
+    const id = event.log.id
     const { AuctionTimeBufferUpdatedEvent } = context.entities
     const { timeBuffer } = event.params
 
@@ -175,7 +175,7 @@ ponder.on(
 ponder.on(
   'NounsAuctionHouse:OwnershipTransferred',
   async ({ event, context }) => {
-    const id = event.log.logId
+    const id = event.log.id
     const { OwnershipTransferEventredEvent } = context.entities
     const { previousOwner, newOwner } = event.params
 
@@ -192,7 +192,7 @@ ponder.on(
 )
 
 ponder.on('NounsAuctionHouse:Paused', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { PausedEvent } = context.entities
   const { account } = event.params
 
@@ -207,7 +207,7 @@ ponder.on('NounsAuctionHouse:Paused', async ({ event, context }) => {
 })
 
 ponder.on('NounsAuctionHouse:Unpaused', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { UnpausedEvent } = context.entities
   const { account } = event.params
 

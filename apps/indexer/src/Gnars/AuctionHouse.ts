@@ -3,7 +3,7 @@ import { dao } from '.'
 import { ponder } from '../../generated'
 
 ponder.on('GnarsAuctionHouse:AuctionBid', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { AuctionBidEvent } = context.entities
   const { gnarId, sender, value } = event.params
 
@@ -23,7 +23,7 @@ ponder.on('GnarsAuctionHouse:AuctionBid', async ({ event, context }) => {
 })
 
 ponder.on('GnarsAuctionHouse:AuctionCreated', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { AuctionCreatedEvent, Auction, Dao } = context.entities
   const { gnarId, startTimestamp, endTimestamp } = event.params
 
@@ -56,7 +56,7 @@ ponder.on('GnarsAuctionHouse:AuctionCreated', async ({ event, context }) => {
 ponder.on(
   'GnarsAuctionHouse:AuctionMinBidIncrementPercentageUpdated',
   async ({ event, context }) => {
-    const id = event.log.logId
+    const id = event.log.id
     const { AuctionMinBidIncrementPercentageUpdatedEvent } = context.entities
     const { minBidIncrementPercentage } = event.params
 
@@ -74,7 +74,7 @@ ponder.on(
 ponder.on(
   'GnarsAuctionHouse:AuctionReservePriceUpdated',
   async ({ event, context }) => {
-    const id = event.log.logId
+    const id = event.log.id
     const { AuctionReservePriceUpdatedEvent } = context.entities
     const { reservePrice } = event.params
 
@@ -90,7 +90,7 @@ ponder.on(
 )
 
 ponder.on('GnarsAuctionHouse:AuctionSettled', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { AuctionSettledEvent, Auction } = context.entities
   const { gnarId, winner, amount } = event.params
 
@@ -123,7 +123,7 @@ ponder.on('GnarsAuctionHouse:AuctionSettled', async ({ event, context }) => {
 ponder.on(
   'GnarsAuctionHouse:OwnershipTransferred',
   async ({ event, context }) => {
-    const id = event.log.logId
+    const id = event.log.id
     const { OwnershipTransferEventredEvent } = context.entities
     const { previousOwner, newOwner } = event.params
 
@@ -140,7 +140,7 @@ ponder.on(
 )
 
 ponder.on('GnarsAuctionHouse:Paused', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { PausedEvent } = context.entities
   const { account } = event.params
 
@@ -155,7 +155,7 @@ ponder.on('GnarsAuctionHouse:Paused', async ({ event, context }) => {
 })
 
 ponder.on('GnarsAuctionHouse:Unpaused', async ({ event, context }) => {
-  const id = event.log.logId
+  const id = event.log.id
   const { UnpausedEvent } = context.entities
   const { account } = event.params
 
