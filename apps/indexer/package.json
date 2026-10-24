@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "ponder dev",
     "start": "ponder start",
-    "codegen": "ponder codegen"
+    "codegen": "ponder codegen",
+    "test:runtime": "node scripts/smoke-runtime.cjs"
   },
   "dependencies": {
     "@ponder/core": "^0.0.69"
@@ -15,6 +16,12 @@
     "viem": "^0.1.21"
   },
   "engines": {
-    "node": ">=16.0.0 <19.0.0"
+    "node": ">=22.23.4 <23"
+  },
+  "packageManager": "pnpm@7.33.7",
+  "pnpm": {
+    "overrides": {
+      "@ponder/core@0.0.69>better-sqlite3": "10.1.0"
+    }
   }
 }
