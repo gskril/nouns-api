@@ -15,44 +15,23 @@ Index the contracts of Nounish DAOs and expose the data via a GraphQL API. This 
 
 It will take a while to backfill all of the contract data, but everything will happen automatically thanks to [Ponder](https://ponder.sh/).
 
-## Node.js runtime security
+## Runtime and deployment
 
-Use Node.js **22.23.4** (the `.nvmrc` files pin it at the repository root and
-both app roots). This release includes the fix for
-[CVE-2026-111497](https://nodejs.org/en/blog/release/v22.23.4). The manifests
-allow later patches on Node 22 only; untested major versions are not included.
-The `.npmrc` files reject incompatible runtimes during package installation.
-These settings do not replace Node in an already-running process.
+Use Node.js **22.23.4**, which includes the
+[CVE-2026-111497 fix](https://nodejs.org/en/blog/release/v22.23.4).
+The `.nvmrc` files pin this release; the app manifests and `.npmrc` files allow
+installation only on Node 22.23.4 or later Node 22 patches.
 
-For the indexer, use pnpm 7.33.7 and `pnpm install --frozen-lockfile` in
-`apps/indexer`. Ponder 0.0.69's `better-sqlite3` 7 dependency does not compile on
-Node 22. A narrowly scoped pnpm override selects 10.1.0, from the first
-[major supporting Node 22](https://github.com/WiseLibs/better-sqlite3/releases/tag/v10.0.0).
-This is a native-addon compatibility change needed for the Node migration,
-not a Brotli fix inside SQLite. Keep using pnpm so the override is honored.
-Ponder and the other application dependencies are unchanged.
+In `apps/indexer`, use pnpm 7.33.7 and `pnpm install --frozen-lockfile`.
+The scoped pnpm override moves Ponder's native `better-sqlite3` dependency to
+10.1.0 for Node 22 compatibility, without upgrading Ponder. Keep using pnpm so
+the override applies. In `apps/web`, use `yarn install --frozen-lockfile` and
+`yarn build`.
 
-Run `pnpm codegen` and `pnpm test:runtime` to check local compatibility. The
-smoke test uses a fresh disposable SQLite database, compiles the application
-handlers/schema, exercises CRUD and GraphQL over loopback, and checks that
-the health endpoint does not report ready before synchronization. It never
-starts RPC synchronization or connects to PostgreSQL. It is not an exploit
-test or a substitute for checking the actual deployed Node release.
-
-For the web app, use `yarn install --frozen-lockfile` and `yarn build` in
-`apps/web` with the same Node version.
-
-### Railway rollout
-
-Keep the indexer service root at `/apps/indexer`. Railway's current Railpack
-builder reads `engines.node`, but `RAILPACK_NODE_VERSION` takes precedence.
-Check any service-level override and build logs to ensure Node 22.23.4 or a
-later Node 22 patch is actually selected. Existing Nixpacks/custom-image
-services must have their runtime configured explicitly and checked as well.
-
-After review, rebuild with the new lockfile/native addon and restart every
-indexer replica or worker. Verify `node --version` inside the running service,
-then validate `/health`, GraphQL queries, RPC indexing, and PostgreSQL access.
-A merged PR, an `engines` value, or a successful local build alone does not
-prove production has been patched. This change does not deploy or inspect the
-live Railway service.
+On Railway, keep the indexer root at `/apps/indexer`. Check the builder and
+runtime overrides: `RAILPACK_NODE_VERSION` takes precedence over the manifest;
+legacy Nixpacks or custom images require their own runtime configuration.
+Rebuild native dependencies and restart every indexer replica/worker, then
+verify `node --version` inside the running service and check `/health`,
+GraphQL, RPC indexing, and PostgreSQL. Repository pins do not update an
+already-running deployment.

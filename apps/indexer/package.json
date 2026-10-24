@@ -3,8 +3,7 @@
   "scripts": {
     "dev": "ponder dev",
     "start": "ponder start",
-    "codegen": "ponder codegen",
-    "test:runtime": "node scripts/smoke-runtime.cjs"
+    "codegen": "ponder codegen"
   },
   "dependencies": {
     "@ponder/core": "^0.0.69"
